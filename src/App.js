@@ -7,17 +7,19 @@ import Questions from './pages/Questions';
 import Feedback from './pages/Feedback';
 import Ranking from './pages/Ranking';
 import './style/App.css';
+import Header from './components/Header';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/questions" component={Questions} />
-        <Route path="/feedback" component={Feedback} />
-        <Route path="/ranking" component={Ranking} />
-      </Switch>
-    </BrowserRouter>
+    <Header />
+    // <BrowserRouter>
+    //   <Switch>
+    //     <Route exact path="/" component={Home} />
+    //     <Route path="/settings" component={Settings} />
+    //     <Route path="/questions" component={Questions} />
+    //     <Route path="/feedback" component={Feedback} />
+    //     <Route path="/ranking" component={Ranking} />
+    //   </Switch>
+    // </BrowserRouter>
   );
 }
