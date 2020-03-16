@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/Header.css'
+import '../style/Header.css';
 
 class Header extends React.Component {
   render() {
@@ -22,8 +22,11 @@ class Header extends React.Component {
         </div>
         <div className="Header_score">
           <p
-          data-testid="header-score"
-          className="Header_score-text">Pontos: {score}</p>
+            data-testid="header-score"
+            className="Header_score-text"
+          >
+            Pontos: {score}
+          </p>
         </div>
       </div>
     );

@@ -1,16 +1,16 @@
 .Header_father {
-  display: flex;
-  flex-flow: row nowrap;
-  padding: 0.5em 2em 0.5em 2em;
-  justify-content: space-between;
   align-items: center;
   background-color: rgb(190, 190, 190);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 1em 2em 1em 2em;
 }
 
 .Header_image-and-name {
+  align-items: center;
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
   justify-content: space-between;
 }
 
