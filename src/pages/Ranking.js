@@ -10,12 +10,13 @@ getLocalStor.sort((a, b) => {
 const Ranking = () => (
   <div>
     <h1 className="ranking-title">Ranking</h1>
-    {getLocalStor.map(({name, score, picture}, position) => (
+    {getLocalStor.map(({ name, score, picture }, position) => (
       <div className="ranking-item" key={`${name}-${score}`}>
         <img
           data-testid={`profile-picture-${position}`}
           className="ranking-img"
           src={picture}
+          alt="Player pictures"
         />
         <span
           data-testid={`${name}-${position}`}
@@ -24,8 +25,7 @@ const Ranking = () => (
           {name} - {score} pontos
           </span>
       </div>
-    )
-    )}
+    ))}
   </div>
 );
 
