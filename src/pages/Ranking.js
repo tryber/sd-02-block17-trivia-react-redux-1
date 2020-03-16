@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/Ranking.css';
 
-let getLocalStor = JSON.parse(localStorage.getItem('ranking'));
+const getLocalStor = JSON.parse(localStorage.getItem('ranking'));
 getLocalStor.sort((a, b) => {
   if (a.score > b.score) return -1;
   if (a.score < b.score) return 1;
@@ -10,23 +10,22 @@ getLocalStor.sort((a, b) => {
 const Ranking = () => (
   <div>
     <h1 className="ranking-title">Ranking</h1>
-    {getLocalStor.map((item) => {
-      return (
-        <div className="ranking-item" key={`${item.name}-${item.score}`}>
-          <img
-            data-testid={`profile-picture-${position}`}
-            className="ranking-img"
-            src={item.picture}
-          />
-          <span
-            data-testid="${nome-do-jogador}-${position}"
-            className="ranking-text"
-          >
-            {item.name} - {item.score} pontos
+    {getLocalStor.map(({name, score, picture}, position) => (
+      <div className="ranking-item" key={`${name}-${score}`}>
+        <img
+          data-testid={`profile-picture-${position}`}
+          className="ranking-img"
+          src={picture}
+        />
+        <span
+          data-testid={`${name}-${position}`}
+          className="ranking-text"
+        >
+          {name} - {score} pontos
           </span>
-        </div>
-      )
-    })}
+      </div>
+    )
+    )}
   </div>
 );
 
