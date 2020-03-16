@@ -4,7 +4,7 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  padding: 1em 2em 1em 2em;
+  padding: 1em;
 }
 
 .Header_image-and-name {
@@ -23,5 +23,5 @@
 }
 
 .Header_score-text {
-  padding-right: 5em;
+  padding-right: 2em;
 }
