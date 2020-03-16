@@ -23,30 +23,28 @@ const handleChange = (e, handleInputChange) => {
   handleInputChange(value, name);
 };
 
-const InitialInputs = ({ name, email, handleInputChange }) => {
-  return (
-    <div>
-      <label htmlFor="email">Email do Gravatar</label>
-      <input
-        value={email}
-        onChange={(event) => handleChange(event, handleInputChange)}
-        name="email"
-        type="text"
-        data-testid="input-gravatar-email"
-      />
-      <label htmlFor="name">Nome do jogador</label>
-      <input
-        value={name}
-        onChange={(event) => handleChange(event, handleInputChange)}
-        name="name"
-        type="text"
-        data-testid="input-player-name"
-      />
-      <button onClick={() => handleClick(name, email)} data-testid="btn-play">JOGAR!</button>
-      <div data-testid="config-button"><ConfigurationButon /></div>
-    </div>
-  );
-};
+const InitialInputs = ({ name, email, handleInputChange }) => (
+  <div>
+    <label htmlFor="email">Email do Gravatar</label>
+    <input
+      value={email}
+      onChange={(event) => handleChange(event, handleInputChange)}
+      name="email"
+      type="text"
+      data-testid="input-gravatar-email"
+    />
+    <label htmlFor="name">Nome do jogador</label>
+    <input
+      value={name}
+      onChange={(event) => handleChange(event, handleInputChange)}
+      name="name"
+      type="text"
+      data-testid="input-player-name"
+    />
+    <button onClick={() => handleClick(name, email)} data-testid="btn-play">JOGAR!</button>
+    <div data-testid="config-button"><ConfigurationButon /></div>
+  </div>
+);
 
 const mapStateToProps = ({ handleInputChange, inputChanges: { name, email } }) => (
   {
