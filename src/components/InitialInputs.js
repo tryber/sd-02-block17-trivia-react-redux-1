@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { handlingInputChanges } from '../actions';
 import ConfigurationButon from './configurationButton';
+import { getToken, getQuestions } from '../services/triviaAPI';
 
-const handleClick = (name, email) => {
+async function handleClick(name, email) {
   const playerStatus = {
     name,
     assertions: 0,
@@ -12,6 +13,8 @@ const handleClick = (name, email) => {
     gravatarEmail: email,
   };
   localStorage.setItem('player', JSON.stringify(playerStatus));
+  await getToken();
+  getQuestions();
   console.log('agora tem que fazer as requisições de API');
 };
 
@@ -53,7 +56,7 @@ const mapDispatchToProps = (dispatch) => ({
   handleInputChange: (value, name) => dispatch(handlingInputChanges(value, name)),
 });
 
-InitialInputs..propTypes = {
+InitialInputs.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
