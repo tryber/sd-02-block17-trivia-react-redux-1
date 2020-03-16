@@ -16,7 +16,7 @@ async function handleClick(name, email) {
   await getToken();
   getQuestions();
   console.log('agora tem que fazer as requisições de API');
-};
+}
 
 const handleChange = (e, handleInputChange) => {
   const { name, value } = e.target;
@@ -32,14 +32,16 @@ const InitialInputs = ({ name, email, handleInputChange }) => {
         onChange={(event) => handleChange(event, handleInputChange)}
         name="email"
         type="text"
-        data-testid="input-gravatar-email" />
+        data-testid="input-gravatar-email"
+      />
       <label htmlFor="name">Nome do jogador</label>
       <input
         value={name}
         onChange={(event) => handleChange(event, handleInputChange)}
         name="name"
         type="text"
-        data-testid="input-player-name" />
+        data-testid="input-player-name"
+      />
       <button onClick={() => handleClick(name, email)} data-testid="btn-play">JOGAR!</button>
       <div data-testid="config-button"><ConfigurationButon /></div>
     </div>
