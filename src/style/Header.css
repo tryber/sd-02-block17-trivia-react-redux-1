@@ -1,0 +1,27 @@
+.Header_father {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0.5em 2em 0.5em 2em;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(190, 190, 190);
+}
+
+.Header_image-and-name {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Header_player-image {
+  border-radius: 10em;
+}
+
+.Header_player-name {
+  padding: 1em;
+}
+
+.Header_score-text {
+  padding-right: 5em;
+}

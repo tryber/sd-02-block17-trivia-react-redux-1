@@ -1,24 +1,33 @@
 import React from 'react';
+import Proptypes from 'prop-types';
+import '../style/Header.css'
 
 class Header extends React.Component {
   render() {
-    const { name, srcAvatar, points } = this.props;
+    const player = JSON.parse(localStorage.getItem('player'));
+    const { name, score, picture } = player;
     return (
       <div className="Header_father">
         <div className="Header_image-and-name">
           <img
             className="Header_player-image"
             alt={`${name} player gravatar`}
-            src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+            src={picture}
           />
-          <p>Jogador: {name}</p>
+          <p className="Header_player-name">Jogador: {name}</p>
         </div>
         <div className="Header_score">
-          <p>Pontos: {points}</p>
+          <p className="Header_score-text">Pontos: {score}</p>
         </div>
       </div>
     );
   }
+}
+
+Header.propTypes = {
+  name: Proptypes.string,
+  srcAvatar: Proptypes.string,
+  points: Proptypes.string,
 }
 
 export default Header;
