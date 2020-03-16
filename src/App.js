@@ -7,7 +7,6 @@ import Questions from './pages/Questions';
 import Feedback from './pages/Feedback';
 import Ranking from './pages/Ranking';
 import './style/App.css';
-import Header from './components/Header';
 
 export default function App() {
   return (
