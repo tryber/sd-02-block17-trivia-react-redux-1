@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/Ranking.css';
 
-const getLocalStor = JSON.parse(localStorage.getItem('ranking'));
+const getLocalStor = JSON.parse(localStorage.getItem('ranking')) || [];
 getLocalStor.sort((a, b) => {
   if (a.score > b.score) return -1;
   if (a.score < b.score) return 1;
