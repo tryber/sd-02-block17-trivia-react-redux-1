@@ -5,6 +5,7 @@ import { handlingInputChanges } from '../actions';
 import ConfigurationButon from './configurationButton';
 import { getToken, getQuestions } from '../services/triviaAPI';
 import getGravatar from '../services/gravatarAPI';
+import { Link } from 'react-router-dom';
 
 async function handleClick(name, email) {
   const picture = getGravatar(email);
@@ -17,8 +18,7 @@ async function handleClick(name, email) {
   };
   localStorage.setItem('player', JSON.stringify(playerStatus));
   await getToken();
-  getQuestions();
-  console.log('agora tem que fazer as requisições de API');
+  getQuestions('', '', '');
 }
 
 const handleChange = (e, handleInputChange) => {
@@ -44,7 +44,9 @@ const InitialInputs = ({ name, email, handleInputChange }) => (
       type="text"
       data-testid="input-player-name"
     />
-    <button onClick={() => handleClick(name, email)} data-testid="btn-play">JOGAR!</button>
+    <Link to='/questions'>
+      <button onClick={() => handleClick(name, email)} data-testid="btn-play">JOGAR!</button>
+    </Link>
     <div data-testid="config-button"><ConfigurationButon /></div>
   </div>
 );

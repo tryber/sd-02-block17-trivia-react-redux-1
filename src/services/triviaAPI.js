@@ -6,8 +6,8 @@ export const getToken = () => (
     .then((result) => localStorage.setItem('token', result.token))
 );
 
-export const getQuestions = () => {
-  fetch(`${TRIVIA_BASE_API}/api.php?amount=5&token=${localStorage.getItem('token')}`)
+export const getQuestions = (categorie, difficult, type) => {
+  fetch(`${TRIVIA_BASE_API}/api.php?amount=5${categorie}${difficult}${type}`)
     .then((response) => response.json())
     .then((result) => localStorage.setItem('questions', JSON.stringify(result.results)));
 };

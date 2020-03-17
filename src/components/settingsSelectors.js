@@ -9,14 +9,14 @@ class SettingSelectors extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categorie: '',
+      categories: '',
     };
   }
 
   componentDidMount() {
     const categorias = getCategories();
     categorias.then((categorias) => {
-      this.setState({categorie: [...categorias.trivia_categories]})
+      this.setState({ categories: [...categorias.trivia_categories] })
     })
   }
 
@@ -26,7 +26,7 @@ class SettingSelectors extends Component {
   };
 
   categorieSelector(handleSelectorChange, categorie) {
-    const categories = this.state.categorie || [];
+    const categories = this.state.categories || [];
     return (
       <div>
         <label htmlFor="categorie">Categoria</label>
@@ -36,8 +36,8 @@ class SettingSelectors extends Component {
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
         >
           <option value="categorie">Escolha uma categoria</option>
-          {categories.map(({ name }) => (
-            <option key={name}>{name}</option>
+          {categories.map(({ name, id }) => (
+            <option key={name} value={id}>{name}</option>
           ))
           }
         </select >
@@ -108,7 +108,6 @@ const mapStateToProps = ({ selectorsChange: { categorie, difficult, type } }) =>
 );
 const mapDispatchToProps = (dispatch) => ({
   handleSelectorChange: (value, name) => dispatch(handleSelectorsChanges(value, name)),
-  getCategories: () => dispatch({ type: 'GET_' })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingSelectors);;
