@@ -17,3 +17,12 @@ export const getCategories = async () => {
   const result = await response.json();
   return result;
 }
+
+export const getsQuestions = (categorie, difficult, type) => (
+  fetch(`${TRIVIA_BASE_API}/api.php?amount=5${categorie}${difficult}${type}`)
+    .then((response) => (
+      response
+        .json()
+        .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
+    ))
+);

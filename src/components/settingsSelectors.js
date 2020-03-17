@@ -35,7 +35,7 @@ class SettingSelectors extends Component {
           value={categorie} name='categorie'
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
         >
-          <option value="categorie">Escolha uma categoria</option>
+          <option value="">Escolha uma categoria</option>
           {categories.map(({ name, id }) => (
             <option key={name} value={id}>{name}</option>
           ))
@@ -54,7 +54,7 @@ class SettingSelectors extends Component {
           value={type} name='type'
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
         >
-          <option value='type'>Escolha um tipo</option>
+          <option value=''>Escolha um tipo</option>
           <option value='boolean'>V ou F</option>
           <option value='multiple'>Múltipla Escolha</option>
         </select>
@@ -68,10 +68,10 @@ class SettingSelectors extends Component {
         <label htmlFor="difficulty">Dificuldade</label>
         <select
           data-testid="question-difficulty-dropdown"
-          value={difficulty} name='difficult'
+          value={difficulty} name='difficulty'
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
         >
-          <option value="difficulty">Escolha a dificuldade</option>
+          <option value="">Escolha a dificuldade</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
@@ -81,7 +81,7 @@ class SettingSelectors extends Component {
   }
 
   render() {
-    const { handleSelectorChange, categorie, difficult, type } = this.props
+    const { handleSelectorChange, categorie, difficulty, type } = this.props
     return (
       <div>
         <Link to="/">
@@ -91,7 +91,7 @@ class SettingSelectors extends Component {
         </Link>
         <div>
           {this.categorieSelector(handleSelectorChange, categorie)}
-          {this.difficultySelector(handleSelectorChange, difficult)}
+          {this.difficultySelector(handleSelectorChange, difficulty)}
           {this.typeSelector(handleSelectorChange, type)}
         </div >
       </div >
@@ -99,10 +99,10 @@ class SettingSelectors extends Component {
   }
 };
 
-const mapStateToProps = ({ selectorsChange: { categorie, difficult, type } }) => (
+const mapStateToProps = ({ selectorsChange: { categorie, difficulty, type } }) => (
   {
     categorie,
-    difficult,
+    difficulty,
     type,
   }
 );

@@ -2,11 +2,12 @@ import { CHANGE_SELECTORS } from '../actions';
 
 const INITIAL_STATE = {
   categorie: '',
-  difficult: '',
+  difficulty: '',
   type: '',
 };
 
 const selectorsChange = (state = INITIAL_STATE, action) => {
+  console.log(state)
   switch (action.type) {
     case CHANGE_SELECTORS:
       return {
