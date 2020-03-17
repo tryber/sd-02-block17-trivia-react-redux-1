@@ -1,11 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { handlingInputChanges } from '../actions';
 import ConfigurationButon from './configurationButton';
 import { getToken, getQuestions } from '../services/triviaAPI';
 import getGravatar from '../services/gravatarAPI';
-import { Link } from 'react-router-dom';
 
 async function handleClick(name, email) {
   const picture = getGravatar(email);
@@ -14,7 +14,7 @@ async function handleClick(name, email) {
     assertions: 0,
     score: 0,
     gravatarEmail: email,
-    picture
+    picture,
   };
   localStorage.setItem('player', JSON.stringify(playerStatus));
   await getToken();
@@ -44,7 +44,7 @@ const InitialInputs = ({ name, email, handleInputChange }) => (
       type="text"
       data-testid="input-player-name"
     />
-    <Link to='/questions'>
+    <Link to="/questions">
       <button onClick={() => handleClick(name, email)} data-testid="btn-play">JOGAR!</button>
     </Link>
     <div data-testid="config-button"><ConfigurationButon /></div>

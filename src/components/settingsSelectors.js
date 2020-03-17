@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCategories } from '../services/triviaAPI';
@@ -15,15 +16,16 @@ class SettingSelectors extends Component {
 
   componentDidMount() {
     const categorias = getCategories();
-    categorias.then((categorias) => {
-      this.setState({ categories: [...categorias.trivia_categories] })
-    })
+    categorias.then((cat) => {
+      this.setState({ categories: [...cat.trivia_categories] });
+    });
   }
 
   handleChange(e, handleSelectorChange) {
+    console.log(this.props);
     const { name, value } = e.target;
     handleSelectorChange(value, name);
-  };
+  }
 
   categorieSelector(handleSelectorChange, categorie) {
     const categories = this.state.categories || [];
@@ -32,7 +34,7 @@ class SettingSelectors extends Component {
         <label htmlFor="categorie">Categoria</label>
         <select
           data-testid="question-category-dropdown"
-          value={categorie} name='categorie'
+          value={categorie} name="categorie"
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
         >
           <option value="">Escolha uma categoria</option>
@@ -42,7 +44,7 @@ class SettingSelectors extends Component {
           }
         </select >
       </div>
-    )
+    );
   }
 
   typeSelector(handleSelectorChange, type) {
@@ -51,15 +53,15 @@ class SettingSelectors extends Component {
         <label htmlFor="type">tipo</label>
         <select
           data-testid="question-type-dropdown"
-          value={type} name='type'
+          value={type} name="type"
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
         >
-          <option value=''>Escolha um tipo</option>
-          <option value='boolean'>V ou F</option>
-          <option value='multiple'>Múltipla Escolha</option>
+          <option value="">Escolha um tipo</option>
+          <option value="boolean">V ou F</option>
+          <option value="multiple">Múltipla Escolha</option>
         </select>
       </div>
-    )
+    );
   }
 
   difficultySelector(handleSelectorChange, difficulty) {
@@ -68,7 +70,7 @@ class SettingSelectors extends Component {
         <label htmlFor="difficulty">Dificuldade</label>
         <select
           data-testid="question-difficulty-dropdown"
-          value={difficulty} name='difficulty'
+          value={difficulty} name="difficulty"
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
         >
           <option value="">Escolha a dificuldade</option>
@@ -77,11 +79,11 @@ class SettingSelectors extends Component {
           <option value="hard">Hard</option>
         </select>
       </div>
-    )
+    );
   }
 
   render() {
-    const { handleSelectorChange, categorie, difficulty, type } = this.props
+    const { handleSelectorChange, categorie, difficulty, type } = this.props;
     return (
       <div>
         <Link to="/">
@@ -95,9 +97,9 @@ class SettingSelectors extends Component {
           {this.typeSelector(handleSelectorChange, type)}
         </div >
       </div >
-    )
+    );
   }
-};
+}
 
 const mapStateToProps = ({ selectorsChange: { categorie, difficulty, type } }) => (
   {
@@ -110,4 +112,11 @@ const mapDispatchToProps = (dispatch) => ({
   handleSelectorChange: (value, name) => dispatch(handleSelectorsChanges(value, name)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingSelectors);;
+SettingSelectors.propTypes = {
+  handleSelectorChange: PropTypes.func.isRequired,
+  categorie: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingSelectors);

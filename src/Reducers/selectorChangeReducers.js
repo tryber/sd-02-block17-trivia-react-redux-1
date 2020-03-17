@@ -7,7 +7,6 @@ const INITIAL_STATE = {
 };
 
 const selectorsChange = (state = INITIAL_STATE, action) => {
-  console.log(state)
   switch (action.type) {
     case CHANGE_SELECTORS:
       return {

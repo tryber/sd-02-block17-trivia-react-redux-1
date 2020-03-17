@@ -2,7 +2,7 @@ import { getsQuestions } from '../services/triviaAPI';
 
 export const CHANGE_INPUT = 'CHANGE_INPUT';
 export const GET_CATEGORIE = 'GET_CATEGORIE';
-export const CHANGE_SELECTORS = 'CHANGE_SELECTORS'
+export const CHANGE_SELECTORS = 'CHANGE_SELECTORS';
 
 export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
 export const RECEIVE_Q_SUCCESS = 'RECEIVE_Q_SUCCESS';
@@ -14,13 +14,13 @@ const requestQuestions = () => ({
 
 const receiveQuestionsFailure = (error) => ({
   type: RECEIVE_Q_FAILURE,
-  error
+  error,
 });
 
-const receiveQuestionsSuccess = ({results}) => ({
+const receiveQuestionsSuccess = ({ results }) => ({
   type: RECEIVE_Q_SUCCESS,
   results,
-})
+});
 
 export function fetchQuestions(categorie, difficult, type) {
   return (dispatch) => {
@@ -29,9 +29,9 @@ export function fetchQuestions(categorie, difficult, type) {
     return getsQuestions(categorie, difficult, type)
       .then(
         (questions) => dispatch(receiveQuestionsSuccess(questions)),
-        (error) => dispatch(receiveQuestionsFailure(error.message))
-      )
-  }
+        (error) => dispatch(receiveQuestionsFailure(error.message)),
+      );
+  };
 }
 
 export const handlingInputChanges = (value, name) => ({

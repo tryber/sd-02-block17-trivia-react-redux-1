@@ -16,7 +16,7 @@ export const getCategories = async () => {
   const response = await fetch(`${TRIVIA_BASE_API}/api_category.php`);
   const result = await response.json();
   return result;
-}
+};
 
 export const getsQuestions = (categorie, difficult, type) => (
   fetch(`${TRIVIA_BASE_API}/api.php?amount=5${categorie}${difficult}${type}`)

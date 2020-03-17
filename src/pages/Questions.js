@@ -1,5 +1,5 @@
 import React from 'react';
-import QuestionsTrivia from '../components/questionsTrivia'
+import QuestionsTrivia from '../components/questionsTrivia';
 // import { connect } from 'react-redux';
 
 const Questions = () => (
