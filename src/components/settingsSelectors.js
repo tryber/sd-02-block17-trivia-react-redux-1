@@ -6,18 +6,18 @@ import { handleSelectorsChanges } from '../actions';
 
 class SettingSelectors extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      didUpdate: '',
+      categorie: '',
     };
   }
 
   componentDidMount() {
-    getCategories();
-    this.setState({ didUpdate: true });
-    console.log(this.state);
-    console.log(JSON.parse(localStorage.getItem('categories')));
+    const categorias = getCategories();
+    categorias.then((categorias) => {
+      this.setState({categorie: [...categorias.trivia_categories]})
+    })
   }
 
   handleChange(e, handleSelectorChange) {
@@ -26,7 +26,7 @@ class SettingSelectors extends Component {
   };
 
   categorieSelector(handleSelectorChange, categorie) {
-    const categories = JSON.parse(localStorage.getItem('categories')) || [];
+    const categories = this.state.categorie || [];
     return (
       <div>
         <label htmlFor="categorie">Categoria</label>
@@ -108,7 +108,7 @@ const mapStateToProps = ({ selectorsChange: { categorie, difficult, type } }) =>
 );
 const mapDispatchToProps = (dispatch) => ({
   handleSelectorChange: (value, name) => dispatch(handleSelectorsChanges(value, name)),
-  getCategories: () => dispatch({type: 'GET_'})
+  getCategories: () => dispatch({ type: 'GET_' })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingSelectors);;

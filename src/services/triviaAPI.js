@@ -12,8 +12,8 @@ export const getQuestions = () => {
     .then((result) => localStorage.setItem('questions', JSON.stringify(result.results)));
 };
 
-export const getCategories = () => {
-  fetch(`${TRIVIA_BASE_API}/api_category.php`)
-    .then((response) => response.json())
-    .then((result) => localStorage.setItem('categories', JSON.stringify(result.trivia_categories)));
+export const getCategories = async () => {
+  const response = await fetch(`${TRIVIA_BASE_API}/api_category.php`);
+  const result = await response.json();
+  return result;
 }
