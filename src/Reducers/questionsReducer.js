@@ -24,8 +24,9 @@ const questionsReducer = (state = INITIAL_Q_STATE, action) => {
         error: action.error,
         isFetching: false,
       };
-    default: return state;
-  };
-}
+    default:
+      return state;
+  }
+};
 
 export default questionsReducer;

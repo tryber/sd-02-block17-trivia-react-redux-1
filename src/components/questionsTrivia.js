@@ -35,11 +35,11 @@ const mapStateToProps = ({
     categorie,
     difficulty,
     type,
-    }
-  );
+  }
+);
 
 const mapDispatchToProps = (dispatch) => ({
-  getQuestions: (categorie, difficulty, type) => 
+  getQuestions: (categorie, difficulty, type) =>
     dispatch(fetchQuestions(categorie, difficulty, type)),
 });
 
