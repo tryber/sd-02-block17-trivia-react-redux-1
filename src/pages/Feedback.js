@@ -12,13 +12,15 @@ const Feedback = () => {
   const assertions = 3;
   const answerTitle = assertions >= 3 ? 'Mandou Bem!' : 'Podia ser Melhor...';
   return (
-    <div className="Feedback_father-div">
+    <div>
       <Header />
-      <h1>{answerTitle}</h1>
-      <p>Você acertou {assertions} questões!</p>
-      <p>Um total de {score} pontos</p>
-      <ToRanking buttonName={'Ver Ranking'} />
-      <PlayAgain buttonName={'Jogar Novamente'} />
+      <div className="Feedback_father-div">
+        <h1>{answerTitle}</h1>
+        <p>Você acertou {assertions} questões!</p>
+        <p>Um total de {score} pontos</p>
+        <ToRanking buttonName={'Ver Ranking'} />
+        <PlayAgain buttonName={'Jogar Novamente'} />
+      </div>
     </div>
   );
 };

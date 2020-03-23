@@ -19,9 +19,11 @@
 }
 
 .Header_player-name {
-  padding: 1em;
+  font-size: 2em;
+  padding-left: 1em;
 }
 
 .Header_score-text {
   padding-right: 2em;
+  font-size: 2em;
 }

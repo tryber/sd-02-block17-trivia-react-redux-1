@@ -1,1 +1,7 @@
-.Feedback_father-div {}
+.Feedback_father-div {
+  font-size: x-large;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
