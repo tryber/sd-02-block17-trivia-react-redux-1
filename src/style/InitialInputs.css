@@ -16,7 +16,9 @@
 .home-inputs-and-btn {
   border: 1px solid black;
   box-sizing: border-box;
+  font-size: 32px;
   height: 16vh;
+  padding: 1%;
   width: 100%;
 }
 
