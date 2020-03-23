@@ -5,10 +5,10 @@ import '../style/Buttons.css';
 const ToRanking = () => {
   const { buttonName } = this.props;
   return (
-    <Link to='/ranking'>
+    <Link to="/ranking">
       <button
-        className='Button_ranking'
-        type='button'
+        className="Button_ranking"
+        type="button"
       >
         {buttonName}
       </button>

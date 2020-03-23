@@ -5,10 +5,10 @@ import '../style/Buttons.css';
 const PlayAgain = () => {
   const { buttonName } = this.props;
   return (
-    <Link to='/questions'>
+    <Link to="/questions">
       <button
-        className='Button_PlayAgain'
-        type='button'
+        className="Button_PlayAgain"
+        type="button"
       >
         {buttonName}
       </button>
