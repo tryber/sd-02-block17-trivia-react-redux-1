@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import ToRanking from '../components/ToRanking';
 import PlayAgain from '../components/PlayAgain';
+import '../style/Feedback.css';
 // import { connect } from 'react-redux';
 
 const Feedback = () => {
@@ -11,7 +12,7 @@ const Feedback = () => {
   const rightAnswers = 3;
   const answerTitle = rightAnswers >= 3 ? 'Mandou Bem!' : 'Podia ser Melhor...';
   return (
-    <div>
+    <div className="Feedback_father-div">
       <Header />
       <h1>{answerTitle}</h1>
       <p>Você acertou {rightAnswers} questões!</p>

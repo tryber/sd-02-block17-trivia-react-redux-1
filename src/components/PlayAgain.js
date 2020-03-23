@@ -7,7 +7,7 @@ const PlayAgain = () => {
   return (
     <Link to="/questions">
       <button
-        className="Button_PlayAgain"
+        className="Button_play-again"
         type="button"
       >
         {buttonName}
