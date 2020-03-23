@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { handlingInputChanges } from '../actions';
-import ConfigurationButon from './configurationButton';
+import ConfigurationButon from './ConfigurationButton';
 import { getToken, getQuestions } from '../services/triviaAPI';
 import '../style/InitialInputs.css';
 import getGravatar from '../services/gravatarAPI';
