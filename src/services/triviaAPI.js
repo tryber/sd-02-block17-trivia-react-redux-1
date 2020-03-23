@@ -6,8 +6,23 @@ export const getToken = () => (
     .then((result) => localStorage.setItem('token', result.token))
 );
 
-export const getQuestions = () => {
-  fetch(`${TRIVIA_BASE_API}/api.php?amount=5&token=${localStorage.getItem('token')}`)
-  .then((response) => response.json())
-  .then((result) => localStorage.setItem('questions', JSON.stringify(result.results)));
+export const getQuestions = (categorie, difficult, type) => {
+  fetch(`${TRIVIA_BASE_API}/api.php?amount=5${categorie}${difficult}${type}`)
+    .then((response) => response.json())
+    .then((result) => localStorage.setItem('questions', JSON.stringify(result.results)));
 };
+
+export const getCategories = async () => {
+  const response = await fetch(`${TRIVIA_BASE_API}/api_category.php`);
+  const result = await response.json();
+  return result;
+};
+
+export const getsQuestions = (categorie, difficult, type) => (
+  fetch(`${TRIVIA_BASE_API}/api.php?amount=5${categorie}${difficult}${type}`)
+    .then((response) => (
+      response
+        .json()
+        .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
+    ))
+);

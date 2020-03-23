@@ -1,21 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { handlingInputChanges } from '../actions';
 import ConfigurationButon from './configurationButton';
 import { getToken, getQuestions } from '../services/triviaAPI';
 import '../style/InitialInputs.css';
+import getGravatar from '../services/gravatarAPI';
 
 async function handleClick(name, email) {
+  const picture = getGravatar(email);
   const playerStatus = {
     name,
     assertions: 0,
     score: 0,
     gravatarEmail: email,
+    picture,
   };
   localStorage.setItem('player', JSON.stringify(playerStatus));
   await getToken();
-  getQuestions();
+  getQuestions('', '', '');
 }
 
 const handleChange = (e, handleInputChange) => {
