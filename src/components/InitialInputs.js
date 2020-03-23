@@ -4,18 +4,21 @@ import { connect } from 'react-redux';
 import { handlingInputChanges } from '../actions';
 import ConfigurationButon from './configurationButton';
 import { getToken, getQuestions } from '../services/triviaAPI';
+import '../style/InitialInputs.css';
+import getGravatar from '../services/gravatarAPI';
 
 async function handleClick(name, email) {
+  const picture = getGravatar(email);
   const playerStatus = {
     name,
     assertions: 0,
     score: 0,
     gravatarEmail: email,
+    picture,
   };
   localStorage.setItem('player', JSON.stringify(playerStatus));
   await getToken();
-  getQuestions();
-  console.log('agora tem que fazer as requisições de API');
+  getQuestions('', '', '');
 }
 
 const handleChange = (e, handleInputChange) => {
@@ -25,24 +28,38 @@ const handleChange = (e, handleInputChange) => {
 
 const InitialInputs = ({ name, email, handleInputChange }) => (
   <div>
-    <label htmlFor="email">Email do Gravatar</label>
-    <input
-      value={email}
-      onChange={(event) => handleChange(event, handleInputChange)}
-      name="email"
-      type="text"
-      data-testid="input-gravatar-email"
-    />
-    <label htmlFor="name">Nome do jogador</label>
-    <input
-      value={name}
-      onChange={(event) => handleChange(event, handleInputChange)}
-      name="name"
-      type="text"
-      data-testid="input-player-name"
-    />
-    <button onClick={() => handleClick(name, email)} data-testid="btn-play">JOGAR!</button>
-    <div data-testid="config-button"><ConfigurationButon /></div>
+    <div className="container-config-btn" data-testid="config-button">
+      <ConfigurationButon />
+    </div>
+    <div className="home-container">
+      <label className="home-text" htmlFor="email">Email do Gravatar:</label>
+      <input
+        className="home-inputs-and-btn"
+        value={email}
+        id="email"
+        onChange={(event) => handleChange(event, handleInputChange)}
+        name="email"
+        type="text"
+        data-testid="input-gravatar-email"
+      />
+      <label className="home-text" htmlFor="name">Nome do jogador:</label>
+      <input
+        className="home-inputs-and-btn"
+        value={name}
+        id="name"
+        onChange={(event) => handleChange(event, handleInputChange)}
+        name="name"
+        type="text"
+        data-testid="input-player-name"
+      />
+      <button
+        className="home-inputs-and-btn home-btn-play"
+        onClick={() => handleClick(name, email)}
+        data-testid="btn-play"
+      >
+        JOGAR!
+      </button>
+    </div>
   </div>
 );
 
