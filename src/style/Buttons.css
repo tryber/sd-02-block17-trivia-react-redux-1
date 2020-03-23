@@ -1,0 +1,17 @@
+.Button_ranking {
+  background-color: rgb(240, 240, 240);
+  border: none;
+  font-size: 40px;
+  height: 83px;
+  margin: 20px 0;
+  width: 350px;
+}
+
+.Button_play-again {
+  background-color: rgb(134, 214, 96);
+  border: none;
+  font-size: 40px;
+  height: 83px;
+  margin: 20px 0;
+  width: 350px;
+}
