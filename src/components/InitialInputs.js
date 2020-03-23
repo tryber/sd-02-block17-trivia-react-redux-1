@@ -67,11 +67,11 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
 const mapStateToProps = ({
   handleInputChange,
   inputChanges: { name, email },
-  selectorsChange: { categorie, difficulty, type }
+  selectorsChange: { categorie, difficulty, type },
 }) => (
-    {
-      name, email, handleInputChange, categorie, difficulty, type,
-    }
+  {
+    name, email, handleInputChange, categorie, difficulty, type,
+  }
   );
 
 const mapDispatchToProps = (dispatch) => ({
@@ -82,6 +82,9 @@ InitialInputs.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  categorie: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InitialInputs);
