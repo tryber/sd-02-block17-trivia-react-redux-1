@@ -7,15 +7,15 @@ import '../style/Feedback.css';
 
 const Feedback = () => {
   // const player = JSON.parse(localStorage.getItem('player'));
-  // const { rightAnswers, score } = player;
+  // const { assertions, score } = player;
   const score = 47;
-  const rightAnswers = 3;
-  const answerTitle = rightAnswers >= 3 ? 'Mandou Bem!' : 'Podia ser Melhor...';
+  const assertions = 3;
+  const answerTitle = assertions >= 3 ? 'Mandou Bem!' : 'Podia ser Melhor...';
   return (
     <div className="Feedback_father-div">
       <Header />
       <h1>{answerTitle}</h1>
-      <p>Você acertou {rightAnswers} questões!</p>
+      <p>Você acertou {assertions} questões!</p>
       <p>Um total de {score} pontos</p>
       <ToRanking buttonName={'Ver Ranking'} />
       <PlayAgain buttonName={'Jogar Novamente'} />

@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../style/Buttons.css';
 
-const PlayAgain = () => {
-  const { buttonName } = this.props;
+const PlayAgain = ({ buttonName }) => {
   return (
     <Link to="/questions">
       <button

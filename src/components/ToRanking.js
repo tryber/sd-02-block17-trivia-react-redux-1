@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../style/Buttons.css';
 
-const ToRanking = () => {
-  const { buttonName } = this.props;
+const ToRanking = ({ buttonName }) => {
   return (
     <Link to="/ranking">
       <button
