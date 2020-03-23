@@ -97,9 +97,9 @@ class SettingSelectors extends Component {
             {this.categorieSelector(handleSelectorChange, categorie)}
             {this.difficultySelector(handleSelectorChange, difficulty)}
             {this.typeSelector(handleSelectorChange, type)}
-          <Link to="/">
-            <button className="settings-btn">Voltar</button>
-          </Link>
+            <Link to="/">
+              <button className="settings-btn">Voltar</button>
+            </Link>
           </div>
         </div>
       </div>
