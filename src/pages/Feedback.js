@@ -16,8 +16,8 @@ const Feedback = () => {
       <h1>{answerTitle}</h1>
       <p>Você acertou {rightAnswers} questões!</p>
       <p>Um total de {score} pontos</p>
-      <ToRanking buttonName={"Ver Ranking"} />
-      <PlayAgain buttonName={"Jogar Novamente"} />
+      <ToRanking buttonName={'Ver Ranking'} />
+      <PlayAgain buttonName={'Jogar Novamente'} />
     </div>
   );
 };
