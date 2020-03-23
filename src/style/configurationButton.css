@@ -1,0 +1,20 @@
+.config-btn {
+  background: rgb(49, 10, 10);
+  border: none;
+  border-radius: 50%;
+  color: rgb(49, 10, 10);
+  height: 40px;
+  margin: 20px 20px 0 0;
+  width: 40px;
+}
+
+.pra-cego-ver {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
