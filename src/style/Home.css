@@ -1,0 +1,29 @@
+.container-config-btn {
+  text-align: right;
+}
+
+.home-container {
+  margin: 0 auto;
+  width: 56%
+}
+
+.home-text {
+  display: block; 
+  font-size: 40px;
+  margin: 25px 0;
+}
+
+.home-inputs-and-btn {
+  border: 1px solid black;
+  box-sizing: border-box;
+  height: 16vh;
+  width: 100%;
+}
+
+.home-btn-play {
+  background-color: rgb(134, 214, 96);
+  border: none;
+  font-size: 40px;
+  height: 83px;
+  margin: 20px 0;
+}
