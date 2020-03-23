@@ -1,0 +1,25 @@
+.ranking-title {
+  color: black;
+  font-size: 40px;
+  text-align: center;
+}
+
+.ranking-item {
+  align-items: center;
+  background-color: rgb(196, 196, 196);
+  border: 2px solid black;
+  display: flex;
+  height: 60px;
+  margin: 30px 10%;
+}
+
+.ranking-img {
+  box-sizing: border-box;
+  height: 100%;
+  margin-right: 20px;
+  padding: 3px;
+}
+
+.ranking-text {
+  font-size: 24px;
+}
