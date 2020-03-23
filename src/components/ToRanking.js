@@ -18,4 +18,4 @@ export default ToRanking;
 
 ToRanking.propTypes = {
   buttonName: PropTypes.string.isRequired,
-}
+};

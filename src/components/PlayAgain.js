@@ -18,4 +18,4 @@ export default PlayAgain;
 
 PlayAgain.propTypes = {
   buttonName: PropTypes.string.isRequired,
-}
+};
