@@ -15,9 +15,9 @@ class SettingSelectors extends Component {
   }
 
   componentDidMount() {
-    const categorias = getCategories();
-    categorias.then((cat) => {
-      this.setState({ categories: [...cat.trivia_categories] });
+    const category = getCategories();
+    category.then((categorie) => {
+      this.setState({ categories: [...categorie.trivia_categories] });
     });
   }
 
@@ -70,7 +70,8 @@ class SettingSelectors extends Component {
         <label htmlFor="difficulty">Dificuldade</label>
         <select
           data-testid="question-difficulty-dropdown"
-          value={difficulty} name="difficulty"
+          value={difficulty}
+          name="difficulty"
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
         >
           <option value="">Escolha a dificuldade</option>
