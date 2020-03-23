@@ -1,11 +1,12 @@
 import React from 'react';
+import QuestionsTrivia from '../components/questionsTrivia';
 import Header from '../components/Header';
-// import { connect } from 'react-redux';
 
 const Questions = () => (
   <div>
     <Header />
     <h1>Página Questions</h1>
+    <QuestionsTrivia />
   </div>
 );
 
