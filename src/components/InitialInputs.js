@@ -7,7 +7,8 @@ import { getToken, getQuestions } from '../services/triviaAPI';
 import '../style/InitialInputs.css';
 import getGravatar from '../services/gravatarAPI';
 
-async function handleClick(name, email) {
+async function handleClick(name, email, categorie = '', difficulty = '', type = '') {
+  console.log(categorie, difficulty, type);
   const picture = getGravatar(email);
   const playerStatus = {
     name,
@@ -18,7 +19,7 @@ async function handleClick(name, email) {
   };
   localStorage.setItem('player', JSON.stringify(playerStatus));
   await getToken();
-  getQuestions('', '', '');
+  getQuestions(`&category=${categorie}`, `&difficulty=${difficulty}`, `&type=${type}`);
 }
 
 const handleChange = (e, handleInputChange) => {
@@ -26,7 +27,7 @@ const handleChange = (e, handleInputChange) => {
   handleInputChange(value, name);
 };
 
-const InitialInputs = ({ name, email, handleInputChange }) => (
+const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type }) => (
   <div>
     <div className="container-config-btn" data-testid="config-button">
       <ConfigurationButon />
@@ -54,7 +55,7 @@ const InitialInputs = ({ name, email, handleInputChange }) => (
       />
       <button
         className="home-inputs-and-btn home-btn-play"
-        onClick={() => handleClick(name, email)}
+        onClick={() => handleClick(name, email, categorie, difficulty, type)}
         data-testid="btn-play"
       >
         JOGAR!
@@ -63,11 +64,15 @@ const InitialInputs = ({ name, email, handleInputChange }) => (
   </div>
 );
 
-const mapStateToProps = ({ handleInputChange, inputChanges: { name, email } }) => (
+const mapStateToProps = ({
+  handleInputChange,
+  inputChanges: { name, email },
+  selectorsChange: { categorie, difficulty, type },
+}) => (
   {
-    name, email, handleInputChange,
+    name, email, handleInputChange, categorie, difficulty, type,
   }
-);
+  );
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputChange: (value, name) => dispatch(handlingInputChanges(value, name)),
@@ -77,6 +82,9 @@ InitialInputs.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  categorie: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InitialInputs);
