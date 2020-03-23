@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../style/configurationButton.css';
+import '../style/ConfigurationButton.css';
 
 const ConfigurationButton = () => (
   <Link to="/settings">

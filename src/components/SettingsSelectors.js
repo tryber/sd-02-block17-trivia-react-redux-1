@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCategories } from '../services/triviaAPI';
 import { handleSelectorsChanges } from '../actions';
+import '../style/SettingSelectors.css';
 
 class SettingSelectors extends Component {
 
@@ -31,8 +32,9 @@ class SettingSelectors extends Component {
     const categories = this.state.categories || [];
     return (
       <div>
-        <label htmlFor="categorie">Categoria</label>
+        <label className="settings-label" htmlFor="categorie">Categoria</label>
         <select
+          className="settings-input"
           data-testid="question-category-dropdown"
           value={categorie} name="categorie"
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
@@ -50,8 +52,9 @@ class SettingSelectors extends Component {
   typeSelector(handleSelectorChange, type) {
     return (
       <div>
-        <label htmlFor="type">tipo</label>
+        <label className="settings-label" htmlFor="type">Tipo</label>
         <select
+          className="settings-input"
           data-testid="question-type-dropdown"
           value={type} name="type"
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
@@ -67,8 +70,9 @@ class SettingSelectors extends Component {
   difficultySelector(handleSelectorChange, difficulty) {
     return (
       <div>
-        <label htmlFor="difficulty">Dificuldade</label>
+        <label className="settings-label" htmlFor="difficulty">Dificuldade</label>
         <select
+          className="settings-input"
           data-testid="question-difficulty-dropdown"
           value={difficulty}
           name="difficulty"
@@ -86,18 +90,19 @@ class SettingSelectors extends Component {
   render() {
     const { handleSelectorChange, categorie, difficulty, type } = this.props;
     return (
-      <div>
-        <Link to="/">
-          <button>
-            Voltar
-      </button>
-        </Link>
+      <div className="settings-container">
+        <p className="settings-title">Configurações</p>
         <div>
-          {this.categorieSelector(handleSelectorChange, categorie)}
-          {this.difficultySelector(handleSelectorChange, difficulty)}
-          {this.typeSelector(handleSelectorChange, type)}
-        </div >
-      </div >
+          <div>
+            {this.categorieSelector(handleSelectorChange, categorie)}
+            {this.difficultySelector(handleSelectorChange, difficulty)}
+            {this.typeSelector(handleSelectorChange, type)}
+            <Link to="/">
+              <button className="settings-btn">Voltar</button>
+            </Link>
+          </div>
+        </div>
+      </div>
     );
   }
 }
