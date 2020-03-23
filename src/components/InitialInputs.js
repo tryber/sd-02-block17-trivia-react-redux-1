@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { handlingInputChanges } from '../actions';
 import ConfigurationButon from './configurationButton';
 import { getToken, getQuestions } from '../services/triviaAPI';
+import '../style/InitialInputs.css';
 
 async function handleClick(name, email) {
   const playerStatus = {
