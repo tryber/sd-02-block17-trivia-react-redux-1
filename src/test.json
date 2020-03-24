@@ -1,0 +1,51 @@
+{
+  "category": "Sports",
+  "type": "multiple",
+  "difficulty": "medium",
+  "question": "Which German sportswear company's logo is the 'Formstripe'?",
+  "correct_answer": "Puma",
+  "incorrect_answers": [
+    "Nike",
+    "Adidas",
+    "Reebok"
+  ]
+},
+{
+  "category": "Geography",
+  "type": "multiple",
+  "difficulty": "hard",
+  "question": "What is the tallest mountain in Canada?",
+  "correct_answer": "Mount Logan",
+  "incorrect_answers": [
+    "Mont Tremblant",
+    "Whistler Mountain",
+    "Blue Mountain"
+  ]
+},
+{
+  "category": "Politics",
+  "type": "boolean",
+  "difficulty": "easy",
+  "question": "One of Barack Obama's United States presidential campaign slogan's was "Yes We Can".",
+  "correct_answer": "True",
+  "incorrect_answers": [
+    "False"
+  ]
+},
+{
+  "category": "History",
+  "type": "multiple",
+  "difficulty": "medium",
+  "question": "Which of the following countries was the first to send an object into space?",
+  "correct_answer": "Germany",
+  "incorrect_answers": [
+    "USA",
+    "Russia",
+    "China"
+  ]
+},
+{
+  "category": "Entertainment: Japanese Anime & Manga",
+  "type": "multiple",
+  "difficulty": "medium",
+  "question":"What was the reason 

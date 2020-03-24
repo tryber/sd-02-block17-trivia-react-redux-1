@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handlingInputChanges } from '../actions';
 import ConfigurationButon from './ConfigurationButton';
@@ -8,7 +9,6 @@ import '../style/InitialInputs.css';
 import getGravatar from '../services/gravatarAPI';
 
 async function handleClick(name, email, categorie = '', difficulty = '', type = '') {
-  console.log(categorie, difficulty, type);
   const picture = getGravatar(email);
   const playerStatus = {
     name,
@@ -53,13 +53,15 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
         type="text"
         data-testid="input-player-name"
       />
-      <button
-        className="home-inputs-and-btn home-btn-play"
-        onClick={() => handleClick(name, email, categorie, difficulty, type)}
-        data-testid="btn-play"
-      >
-        JOGAR!
+      <Link to='/questions'>
+        <button
+          className="home-inputs-and-btn home-btn-play"
+          onClick={() => handleClick(name, email, categorie, difficulty, type)}
+          data-testid="btn-play"
+        >
+          JOGAR!
       </button>
+      </Link>
     </div>
   </div>
 );
@@ -69,9 +71,9 @@ const mapStateToProps = ({
   inputChanges: { name, email },
   selectorsChange: { categorie, difficulty, type },
 }) => (
-  {
-    name, email, handleInputChange, categorie, difficulty, type,
-  }
+    {
+      name, email, handleInputChange, categorie, difficulty, type,
+    }
   );
 
 const mapDispatchToProps = (dispatch) => ({

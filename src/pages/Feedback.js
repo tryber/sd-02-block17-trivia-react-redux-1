@@ -15,13 +15,25 @@ const Feedback = () => {
     <div>
       <Header />
       <div className="Feedback_father-div">
-        <h1>{answerTitle}</h1>
-        <p>Você acertou {assertions} questões!</p>
-        <p>Um total de {score} pontos</p>
+        <h1 data-testid="feedback-text">
+          {answerTitle}
+        </h1>
+        <p>Você acertou
+          <span data-testid="feedback-total-question">
+            {assertions}
+          </span>
+          questões!
+        </p>
+        <p>Um total de
+          <span data-testid="feedback-total-score">
+            {score}
+          </span>
+            pontos
+        </p>
         <ToRanking buttonName={'Ver Ranking'} />
         <PlayAgain buttonName={'Jogar Novamente'} />
       </div>
-    </div>
+    </div >
   );
 };
 
