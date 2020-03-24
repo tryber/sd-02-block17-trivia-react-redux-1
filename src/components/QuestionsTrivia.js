@@ -13,6 +13,18 @@ const randomQuestions = (results, index) => {
   }
 }
 
+const calculateScore = (difficulty) => {
+  switch (difficulty) {
+    case 'easy':
+      return 1;
+    case 'medium':
+      return 2;
+    case 'hard':
+      return 3;
+    default: return '';
+  }
+}
+
 class QuestionsTrivia extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +34,7 @@ class QuestionsTrivia extends Component {
       isAnswered: false,
       rightQuestions: 0,
       clock: 30,
+      score: 0,
     }
   }
 
@@ -36,14 +49,15 @@ class QuestionsTrivia extends Component {
 
   changeIndex() {
     if (this.state.index < 4) {
-      console.log(this.state.index);
       this.setState({
         index: this.state.index + 1,
         isAnswered: false,
+        clock: 30,
       });
     }
     if (this.state.index === 4) {
-      console.log(this.state.isEndGame);
+      const { rightQuestions, score } = this.state;
+      // localStorage.setItem('player') - Setar no local storage os valoes.
       this.setState({
         isEndGame: true,
       });
@@ -60,15 +74,20 @@ class QuestionsTrivia extends Component {
       }
       if (clock === 0) {
         clearInterval(this.clockTimer)
+        this.setState(() => ({
+          isAnswered: true,
+        }));
       }
     }, 1000)
   }
 
-  validAnswer(userAnswer, correctAnswer) {
-    console.log(userAnswer, correctAnswer)
-    if (userAnswer === correctAnswer) {
+  validAnswer(userAnswer, objAnswer) {
+    const { correct_answer, difficulty } = objAnswer;
+    const newScore = 10 + (calculateScore(difficulty) * this.state.clock);
+    if (userAnswer === correct_answer) {
       this.setState({
         rightQuestions: this.state.rightQuestions + 1,
+        score: this.state.score + newScore,
       });
     }
     this.setState({
@@ -110,7 +129,7 @@ class QuestionsTrivia extends Component {
               key={answer}
               disabled={this.state.isAnswered}
               type="button"
-              onClick={(e) => this.validAnswer(e.target.value, results[index].correct_answer)}
+              onClick={() => this.validAnswer(answer, results[index])}
             >
               {answer}
             </button>
