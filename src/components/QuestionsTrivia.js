@@ -20,10 +20,13 @@ class QuestionsTrivia extends Component {
       index: 0,
       isEndGame: false,
       isAnswered: false,
+      rightQuestions: 0,
       clock: 30,
     }
   }
+
   componentDidMount() {
+    this.clockTimer();
     const { getQuestions, categorie, difficulty, type } = this.props;
     const adjustedCategorie = categorie ? `&category=${categorie}` : '';
     const adjustedDifficult = difficulty ? `&difficulty=${difficulty}` : '';
@@ -48,31 +51,40 @@ class QuestionsTrivia extends Component {
   };
 
   clockTimer() {
-    const { clock } = this.state;
-    // setInterval((clock) => {
-    //   this.setState({
-    //     clock: this.state.clock - 1,
-    //   })
-    // }, 1000);
+    setInterval(() => {
+      const { clock } = this.state;
+      if (clock > 0) {
+        this.setState((prevState) => ({
+          clock: prevState.clock - 1
+        }))
+      }
+      if (clock === 0) {
+        clearInterval(this.clockTimer)
+      }
+    }, 1000)
   }
 
   validAnswer(userAnswer, correctAnswer) {
     console.log(userAnswer, correctAnswer)
+    if (userAnswer === correctAnswer) {
+      this.setState({
+        rightQuestions: this.state.rightQuestions + 1,
+      });
+    }
     this.setState({
       isAnswered: true,
-    })
+    });
   }
 
   classNameToButton(userAnswer, correctAnswer) {
     const { isAnswered } = this.state;
-    console.log('1', userAnswer, '2', correctAnswer)
     if (!isAnswered) return "Btn_grey";
     if (userAnswer === correctAnswer) return "Btn_green"
     return "Btn_red";
   }
 
   render() {
-    const { index, isEndGame } = this.state;
+    const { index, isEndGame, clock } = this.state;
     const { results } = this.props;
     if (!results) return <div>Loading...</div>;
     const allAnswers = randomQuestions(results, index);
@@ -80,6 +92,7 @@ class QuestionsTrivia extends Component {
     return (
       <div className="Questions_father">
         <div className="Question">
+          <p>{clock}</p>
 
           <div className="Question_title">
             <p>{results[index].category}</p>
