@@ -53,7 +53,7 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
         type="text"
         data-testid="input-player-name"
       />
-      <Link to='/questions'>
+      <Link to="/questions">
         <button
           className="home-inputs-and-btn home-btn-play"
           onClick={() => handleClick(name, email, categorie, difficulty, type)}
@@ -71,10 +71,10 @@ const mapStateToProps = ({
   inputChanges: { name, email },
   selectorsChange: { categorie, difficulty, type },
 }) => (
-    {
-      name, email, handleInputChange, categorie, difficulty, type,
-    }
-  );
+  {
+    name, email, handleInputChange, categorie, difficulty, type,
+  }
+);
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputChange: (value, name) => dispatch(handlingInputChanges(value, name)),

@@ -9,7 +9,7 @@ class QuestionsTrivia extends Component {
     super(props);
     this.state = {
       index: 0,
-    }
+    };
   }
 
   componentDidMount() {
@@ -23,12 +23,12 @@ class QuestionsTrivia extends Component {
   render() {
     const { index } = this.state;
     const { results } = this.props;
-    const randomQuestions = (results, index) => {
+    const randomQuestions = (index) => {
       if (results) {
         return [...results[index].incorrect_answers, results[index].correct_answer];
       }
     }
-    const allAnswers = randomQuestions(results, index);
+    const allAnswers = randomQuestions(index);
     if (!results) return <div>Loading...</div>;
     return (
       <div>
@@ -36,7 +36,7 @@ class QuestionsTrivia extends Component {
           <div className="Question">
 
             <div className="Question_title">
-              <p>{results[index].category}</p>
+              <p charset="utf-8">{results[index].category}</p>
             </div>
 
             <div className="Question_phrase">
