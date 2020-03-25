@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchQuestions, handleScoreChanges } from '../actions';
@@ -11,7 +11,8 @@ const randomQuestions = (results, index) => {
   if (results) {
     return [...results[index].incorrect_answers, results[index].correct_answer];
   }
-}
+  return '';
+};
 
 const calculateScore = (difficulty) => {
   switch (difficulty) {
@@ -23,7 +24,7 @@ const calculateScore = (difficulty) => {
       return 3;
     default: return '';
   }
-}
+};
 
 class QuestionsTrivia extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class QuestionsTrivia extends Component {
       rightQuestions: 0,
       clock: 30,
       score: 0,
-    }
+    };
   }
 
   componentDidMount() {
@@ -51,7 +52,7 @@ class QuestionsTrivia extends Component {
     const { rightQuestions, score } = this.state;
     console.log(rightQuestions);
     console.log(score);
-    const player = JSON.parse(localStorage.getItem("player"));
+    const player = JSON.parse(localStorage.getItem('player'));
     player.assertions = rightQuestions;
     player.score = score;
     localStorage.setItem('player', JSON.stringify(player));
@@ -67,30 +68,30 @@ class QuestionsTrivia extends Component {
         isEndGame: true,
       });
     }
-  };
+  }
 
   clockTimer() {
     setInterval(() => {
       const { clock } = this.state;
       if (clock > 0) {
         this.setState((prevState) => ({
-          clock: prevState.clock - 1
-        }))
+          clock: prevState.clock - 1,
+        }));
       }
       if (clock === 0) {
-        clearInterval(this.clockTimer)
+        clearInterval(this.clockTimer);
         this.setState(() => ({
           isAnswered: true,
         }));
       }
-    }, 1000)
+    }, 1000);
   }
 
   validAnswer(userAnswer, objAnswer) {
     const { changeScore } = this.props;
-    const { correct_answer, difficulty } = objAnswer;
+    const { correct_answer: correctAnswer, difficulty } = objAnswer;
     const newScore = 10 + (calculateScore(difficulty) * this.state.clock);
-    if (userAnswer === correct_answer) {
+    if (userAnswer === correctAnswer) {
       this.setState({
         rightQuestions: this.state.rightQuestions + 1,
         score: this.state.score + newScore,
@@ -104,9 +105,9 @@ class QuestionsTrivia extends Component {
 
   classNameToButton(userAnswer, correctAnswer) {
     const { isAnswered } = this.state;
-    if (!isAnswered) return "Btn_grey";
-    if (userAnswer === correctAnswer) return "Btn_green"
-    return "Btn_red";
+    if (!isAnswered) return 'Btn_grey';
+    if (userAnswer === correctAnswer) return 'Btn_green';
+    return 'Btn_red';
   }
 
   render() {
@@ -158,13 +159,13 @@ const mapStateToProps = ({
   selectorsChange: { categorie, difficulty, type },
   questionsReducer: { results },
 }) => (
-    {
-      results,
-      categorie,
-      difficulty,
-      type,
-    }
-  );
+  {
+    results,
+    categorie,
+    difficulty,
+    type,
+  }
+);
 
 const mapDispatchToProps = (dispatch) => ({
   getQuestions: (categorie, difficulty, type) =>
@@ -178,6 +179,7 @@ QuestionsTrivia.propTypes = {
   categorie: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  changeScore: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionsTrivia);

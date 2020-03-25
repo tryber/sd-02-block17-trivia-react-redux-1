@@ -72,10 +72,10 @@ const mapStateToProps = ({
   inputChanges: { name, email },
   selectorsChange: { categorie, difficulty, type },
 }) => (
-    {
-      name, email, handleInputChange, categorie, difficulty, type,
-    }
-  );
+  {
+    name, email, handleInputChange, categorie, difficulty, type,
+  }
+);
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputChange: (value, name) => dispatch(handlingInputChanges(value, name)),

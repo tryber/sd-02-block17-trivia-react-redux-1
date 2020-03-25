@@ -56,4 +56,4 @@ export const handleSelectorsChanges = (value, name) => ({
 export const handleScoreChanges = (value) => ({
   type: CHANGE_SCORE,
   value,
-})
+});

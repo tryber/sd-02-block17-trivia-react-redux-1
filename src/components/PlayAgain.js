@@ -7,13 +7,13 @@ import '../style/Buttons.css';
 
 
 const handleClick = (changeScore) => {
-  const player = JSON.parse(localStorage.getItem("player"));
+  const player = JSON.parse(localStorage.getItem('player'));
   const invertedScore = player.score * -1;
   player.assertions = 0;
   player.score = 0;
   localStorage.setItem('player', JSON.stringify(player));
   changeScore(invertedScore);
-}
+};
 
 const PlayAgain = ({ buttonName, changeScore }) => (
   <Link to="/questions">
@@ -35,4 +35,5 @@ export default connect(null, mapDispatchToProps)(PlayAgain);
 
 PlayAgain.propTypes = {
   buttonName: PropTypes.string.isRequired,
+  changeScore: PropTypes.func.isRequired,
 };

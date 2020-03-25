@@ -38,9 +38,13 @@ class Header extends React.Component {
 const mapStateToProps = ({
   scoreChangeReducer: { score },
 }) => (
-    {
-      score,
-    }
-  );
+  {
+    score,
+  }
+);
+
+Header.propTypes = {
+  score: PropTypes.number.isRequired,
+};
 
 export default connect(mapStateToProps)(Header);
