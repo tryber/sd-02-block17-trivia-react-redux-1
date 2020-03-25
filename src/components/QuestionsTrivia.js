@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 
-import { fetchQuestions } from '../actions';
+import { fetchQuestions, handleScoreChanges } from '../actions';
 
 import '../style/QuestionsTrivia.css';
 
@@ -48,6 +48,13 @@ class QuestionsTrivia extends Component {
   }
 
   changeIndex() {
+    const { rightQuestions, score } = this.state;
+    console.log(rightQuestions);
+    console.log(score);
+    const player = JSON.parse(localStorage.getItem("player"));
+    player.assertions = rightQuestions;
+    player.score = score;
+    localStorage.setItem('player', JSON.stringify(player));
     if (this.state.index < 4) {
       this.setState({
         index: this.state.index + 1,
@@ -56,8 +63,6 @@ class QuestionsTrivia extends Component {
       });
     }
     if (this.state.index === 4) {
-      const { rightQuestions, score } = this.state;
-      // localStorage.setItem('player') - Setar no local storage os valoes.
       this.setState({
         isEndGame: true,
       });
@@ -82,6 +87,7 @@ class QuestionsTrivia extends Component {
   }
 
   validAnswer(userAnswer, objAnswer) {
+    const { changeScore } = this.props;
     const { correct_answer, difficulty } = objAnswer;
     const newScore = 10 + (calculateScore(difficulty) * this.state.clock);
     if (userAnswer === correct_answer) {
@@ -89,6 +95,7 @@ class QuestionsTrivia extends Component {
         rightQuestions: this.state.rightQuestions + 1,
         score: this.state.score + newScore,
       });
+      changeScore(newScore);
     }
     this.setState({
       isAnswered: true,
@@ -162,6 +169,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch) => ({
   getQuestions: (categorie, difficulty, type) =>
     dispatch(fetchQuestions(categorie, difficulty, type)),
+  changeScore: (value) => dispatch(handleScoreChanges(value)),
 });
 
 QuestionsTrivia.propTypes = {

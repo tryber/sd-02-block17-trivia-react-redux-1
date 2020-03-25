@@ -8,6 +8,8 @@ export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
 export const RECEIVE_Q_SUCCESS = 'RECEIVE_Q_SUCCESS';
 export const RECEIVE_Q_FAILURE = 'RECEIVE_Q_FAILURE';
 
+export const CHANGE_SCORE = 'CHANGE_SCORE';
+
 const requestQuestions = () => ({
   type: REQUEST_QUESTIONS,
 });
@@ -50,3 +52,8 @@ export const handleSelectorsChanges = (value, name) => ({
   value,
   name,
 });
+
+export const handleScoreChanges = (value) => ({
+  type: CHANGE_SCORE,
+  value,
+})

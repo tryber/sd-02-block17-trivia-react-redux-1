@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import '../style/Header.css';
 
 class Header extends React.Component {
   render() {
+    const { score } = this.props;
     const player = JSON.parse(localStorage.getItem('player'));
-    const { name, score, picture } = player;
+    const { name, picture } = player;
     return (
       <div className="Header_father">
         <div className="Header_image-and-name">
@@ -33,4 +35,12 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+const mapStateToProps = ({
+  scoreChangeReducer: { score },
+}) => (
+    {
+      score,
+    }
+  );
+
+export default connect(mapStateToProps)(Header);
