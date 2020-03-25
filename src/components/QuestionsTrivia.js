@@ -125,8 +125,23 @@ class QuestionsTrivia extends Component {
     return 'btn-red';
   }
 
+  buttonNext() {
+    const { isAnswered } = this.state;
+    return (
+      <button
+        type="button"
+        className="btn-next"
+        hidden={!isAnswered}
+        data-testi d="btn-next"
+        onClick={() => this.changeIndex()}
+      >
+        PRÓXIMA
+      </button>
+    );
+  }
+
   render() {
-    const { index, isEndGame, isAnswered, clock } = this.state;
+    const { index, isEndGame, clock } = this.state;
     const { results } = this.props;
     if (!results) return <div>Loading...</div>;
     const allAnswers = randomQuestions(results, index);
@@ -150,15 +165,7 @@ class QuestionsTrivia extends Component {
               {answer}
             </button>
           ))}
-          <button
-            type="button"
-            className="btn-next"
-            hidden={!isAnswered}
-            data-testid="btn-next"
-            onClick={() => this.changeIndex()}
-          >
-            PRÓXIMA
-            </button>
+          {this.buttonNext()}
         </div>
       </div>
     );

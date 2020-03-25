@@ -10,10 +10,10 @@
 
 .questions-buttons {
   align-items: flex-end;
-  flex-wrap: wrap;
-  justify-content: center;
   box-sizing: border-box;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 40px 40px 0 0;
   text-align: center;
   width: 50%;
@@ -44,7 +44,9 @@
   margin-left: 40px;
 }
 
-.btn-grey , .btn-green , .btn-red {
+.btn-grey,
+.btn-green,
+.btn-red {
   background-color: rgb(196, 196, 196);
   font-size: 26px;
   width: 100%;
@@ -59,7 +61,7 @@
 }
 
 .btn-red {
-  border: 3px solid rgb(255, 0, 0);
+  border: 3px solid red;
 }
 
 .btn-next {
