@@ -110,6 +110,23 @@ class QuestionsTrivia extends Component {
     return 'Btn_red';
   }
 
+  renderQuestion(clock, category, question) {
+    return (
+      <div>
+        <div className="Question">
+          <p>{clock}</p>
+          <div className="Question_title">
+            <p>{category}</p>
+          </div>
+
+          <div className="Question_phrase">
+            <p>{question}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const { index, isEndGame, clock } = this.state;
     const { results } = this.props;
@@ -118,18 +135,7 @@ class QuestionsTrivia extends Component {
     if (isEndGame) return <Redirect to="/feedback" />;
     return (
       <div className="Questions_father">
-        <div className="Question">
-          <p>{clock}</p>
-
-          <div className="Question_title">
-            <p>{results[index].category}</p>
-          </div>
-
-          <div className="Question_phrase">
-            <p>{results[index].question}</p>
-          </div>
-        </div>
-
+        {this.renderQuestion(clock, results[index].category, results[index].question)}
         <div className="Selections">
           {allAnswers.sort().map((answer) => (
             <button
@@ -159,13 +165,13 @@ const mapStateToProps = ({
   selectorsChange: { categorie, difficulty, type },
   questionsReducer: { results },
 }) => (
-  {
-    results,
-    categorie,
-    difficulty,
-    type,
-  }
-);
+    {
+      results,
+      categorie,
+      difficulty,
+      type,
+    }
+  );
 
 const mapDispatchToProps = (dispatch) => ({
   getQuestions: (categorie, difficulty, type) =>
