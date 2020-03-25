@@ -14,7 +14,7 @@ const Ranking = () => {
     <div className="Ranking_father">
       <h1 className="ranking-title">Ranking</h1>
       {getLocalStor.map(({ name, score, picture }, position) => (
-        <div className="ranking-item" key={`${name}-${score}`}>
+        <div className="ranking-item" key={`${name}-${score}-${position}`}>
           <img
             data-testid={`profile-picture-${position}`}
             className="ranking-img"

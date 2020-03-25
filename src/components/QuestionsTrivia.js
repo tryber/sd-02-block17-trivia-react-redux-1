@@ -74,7 +74,21 @@ class QuestionsTrivia extends Component {
   }
 
   componentDidMount() {
-    this.clockTimer();
+    this.intervalID = setInterval(() => {
+      const { clock } = this.state;
+      if (clock > 0) {
+        this.setState((prevState) => ({
+          clock: prevState.clock - 1,
+        }));
+      }
+      if (clock === 0) {
+        clearInterval(this.clockTimer);
+        this.setState(() => ({
+          isAnswered: true,
+        }));
+      }
+    }, 1000);
+
     const { getQuestions, categorie, difficulty, type } = this.props;
     const adjustedCategorie = categorie ? `&category=${categorie}` : '';
     const adjustedDifficult = difficulty ? `&difficulty=${difficulty}` : '';
@@ -84,8 +98,6 @@ class QuestionsTrivia extends Component {
 
   changeIndex() {
     const { rightQuestions, score } = this.state;
-    console.log(rightQuestions);
-    console.log(score);
     const player = JSON.parse(localStorage.getItem('player'));
     player.assertions = rightQuestions;
     player.score = score;
@@ -103,23 +115,6 @@ class QuestionsTrivia extends Component {
       });
       QuestionsTrivia.setRanking();
     }
-  }
-
-  clockTimer() {
-    setInterval(() => {
-      const { clock } = this.state;
-      if (clock > 0) {
-        this.setState((prevState) => ({
-          clock: prevState.clock - 1,
-        }));
-      }
-      if (clock === 0) {
-        clearInterval(this.clockTimer);
-        this.setState(() => ({
-          isAnswered: true,
-        }));
-      }
-    }, 1000);
   }
 
   validAnswer(userAnswer, objAnswer) {
@@ -160,6 +155,10 @@ class QuestionsTrivia extends Component {
     );
   }
 
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+  
   render() {
     const { index, isEndGame, clock } = this.state;
     const { results } = this.props;
@@ -210,11 +209,16 @@ const mapDispatchToProps = (dispatch) => ({
 
 QuestionsTrivia.propTypes = {
   getQuestions: PropTypes.func.isRequired,
-  results: PropTypes.instanceOf(Array).isRequired,
+  results: PropTypes.instanceOf(Array),
   categorie: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   changeScore: PropTypes.func.isRequired,
+};
+
+
+QuestionsTrivia.defaultProps = {
+  results: [],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionsTrivia);

@@ -5,9 +5,9 @@ import ConfigurationButton from './ConfigurationButton';
 import '../style/Header.css';
 
 const showConfig = () => {
-  if (window.location.href.includes('feedback')) return <ConfigurationButton />
+  if (window.location.href.includes('feedback')) return <ConfigurationButton />;
   return '';
-}
+};
 
 class Header extends React.Component {
   render() {
@@ -43,13 +43,7 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = ({
-  scoreChangeReducer: { score },
-}) => (
-    {
-      score,
-    }
-  );
+const mapStateToProps = ({ scoreChangeReducer: { score } }) => ({ score });
 
 Header.propTypes = {
   score: PropTypes.number.isRequired,

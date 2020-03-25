@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { handleScoreChanges } from '../actions'
+import { handleScoreChanges } from '../actions';
 import '../style/Buttons.css';
 
 const handleClick = (changeScore) => {
@@ -33,4 +33,5 @@ export default connect(null, mapDispatchToProps)(ToRanking);
 
 ToRanking.propTypes = {
   buttonName: PropTypes.string.isRequired,
+  changeScore: PropTypes.func.isRequired,
 };

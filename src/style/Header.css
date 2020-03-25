@@ -30,5 +30,5 @@
 
 .Header_score {
   display: flex;
-  flex-wrap: row nowrap;
+  flex-flow: row nowrap;
 }
