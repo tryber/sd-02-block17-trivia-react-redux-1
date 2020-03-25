@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { handlingInputChanges } from '../actions';
 import ConfigurationButon from './ConfigurationButton';
 import { getToken, getQuestions } from '../services/triviaAPI';
@@ -53,13 +54,15 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
         type="text"
         data-testid="input-player-name"
       />
-      <button
-        className="home-inputs-and-btn home-btn-play"
-        onClick={() => handleClick(name, email, categorie, difficulty, type)}
-        data-testid="btn-play"
-      >
-        JOGAR!
+      <Link to="/questions">
+        <button
+          className="home-inputs-and-btn home-btn-play"
+          onClick={() => handleClick(name, email, categorie, difficulty, type)}
+          data-testid="btn-play"
+        >
+          JOGAR!
       </button>
+      </Link>
     </div>
   </div>
 );
@@ -72,7 +75,7 @@ const mapStateToProps = ({
   {
     name, email, handleInputChange, categorie, difficulty, type,
   }
-  );
+);
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputChange: (value, name) => dispatch(handlingInputChanges(value, name)),
