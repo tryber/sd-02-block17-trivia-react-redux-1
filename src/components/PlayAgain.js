@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { handleScoreChanges } from '../actions';
 import '../style/Buttons.css';
 
-
 const handleClick = (changeScore) => {
   const player = JSON.parse(localStorage.getItem('player'));
   const invertedScore = player.score * -1;
