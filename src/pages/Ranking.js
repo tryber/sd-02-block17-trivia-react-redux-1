@@ -11,7 +11,7 @@ const Ranking = () => {
   });
 
   return (
-    <div>
+    <div className="Ranking_father">
       <h1 className="ranking-title">Ranking</h1>
       {getLocalStor.map(({ name, score, picture }, position) => (
         <div className="ranking-item" key={`${name}-${score}`}>
@@ -30,7 +30,7 @@ const Ranking = () => {
         </div>
       ))}
       <Link to="/">
-        <button>Voltar ao início</button>
+        <button className="Button_home">Voltar ao início</button>
       </Link>
     </div>
   );
