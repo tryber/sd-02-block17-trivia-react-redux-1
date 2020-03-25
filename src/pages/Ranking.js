@@ -34,6 +34,6 @@ const Ranking = () => {
       </Link>
     </div>
   );
-}
+};
 
 export default Ranking;

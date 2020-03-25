@@ -28,6 +28,25 @@ const calculateScore = (difficulty) => {
 
 class QuestionsTrivia extends Component {
 
+  static notFound() {
+    return (
+      <div>
+        <h1>Não foram encontradas perguntas</h1>
+        <Link to="/">
+          <button>Voltar ao início</button>
+        </Link>
+      </div>
+    )
+  }
+
+  static setRanking() {
+    const { name, score, picture } = JSON.parse(localStorage.getItem('player'));
+    const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+    const newPlayer = { name, score, picture };
+    const newRanking = [...ranking, newPlayer];
+    localStorage.setItem('ranking', JSON.stringify(newRanking));
+  }
+
   static renderQuestion(clock, category, question) {
     return (
       <div>
@@ -66,14 +85,6 @@ class QuestionsTrivia extends Component {
     getQuestions(adjustedCategorie, adjustedDifficult, adjustedType);
   }
 
-  setRanking() {
-    const { name, score, picture } = JSON.parse(localStorage.getItem('player'));
-    const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
-    const newPlayer = { name, score, picture };
-    const newRanking = [...ranking, newPlayer];
-    localStorage.setItem('ranking', JSON.stringify(newRanking));
-  }
-
   changeIndex() {
     const { rightQuestions, score } = this.state;
     console.log(rightQuestions);
@@ -93,7 +104,7 @@ class QuestionsTrivia extends Component {
       this.setState({
         isEndGame: true,
       });
-      this.setRanking();
+      QuestionsTrivia.setRanking();
     }
   }
 
@@ -137,23 +148,11 @@ class QuestionsTrivia extends Component {
     return 'Btn_red';
   }
 
-  notFound() {
-    return (
-      <div>
-        <h1>Não foram encontradas perguntas</h1>
-        <Link to="/">
-          <button>Voltar ao início</button>
-        </Link>
-      </div>
-    )
-  }
-
   render() {
     const { index, isEndGame, clock } = this.state;
     const { results } = this.props;
-    console.log(results);
     if (!results) return <div>Loading...</div>;
-    if (results.length === 0) return this.notFound();
+    if (results.length === 0) return QuestionsTrivia.notFound();
     const allAnswers = randomQuestions(results, index);
     if (isEndGame) return <Redirect to="/feedback" />;
     return (
@@ -167,8 +166,7 @@ class QuestionsTrivia extends Component {
               disabled={this.state.isAnswered}
               type="button"
               onClick={() => this.validAnswer(answer, results[index])}
-            >
-              {answer}
+            > {answer}
             </button>
           ))}
           <button
