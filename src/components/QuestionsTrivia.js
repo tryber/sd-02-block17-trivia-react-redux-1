@@ -27,6 +27,24 @@ const calculateScore = (difficulty) => {
 };
 
 class QuestionsTrivia extends Component {
+
+  static renderQuestion(clock, category, question) {
+    return (
+      <div>
+        <div className="Question">
+          <p>{clock}</p>
+          <div className="Question_title">
+            <p>{category}</p>
+          </div>
+
+          <div className="Question_phrase">
+            <p>{question}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -108,23 +126,6 @@ class QuestionsTrivia extends Component {
     if (!isAnswered) return 'Btn_grey';
     if (userAnswer === correctAnswer) return 'Btn_green';
     return 'Btn_red';
-  }
-
-  static renderQuestion(clock, category, question) {
-    return (
-      <div>
-        <div className="Question">
-          <p>{clock}</p>
-          <div className="Question_title">
-            <p>{category}</p>
-          </div>
-
-          <div className="Question_phrase">
-            <p>{question}</p>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   render() {
