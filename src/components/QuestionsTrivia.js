@@ -175,14 +175,12 @@ class QuestionsTrivia extends Component {
 const mapStateToProps = ({
   selectorsChange: { categorie, difficulty, type },
   questionsReducer: { results },
-}) => (
-    {
-      results,
-      categorie,
-      difficulty,
-      type,
-    }
-  );
+}) => ({
+  results,
+  categorie,
+  difficulty,
+  type,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getQuestions: (categorie, difficulty, type) =>
