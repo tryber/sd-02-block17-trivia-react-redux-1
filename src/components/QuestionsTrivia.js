@@ -49,17 +49,14 @@ class QuestionsTrivia extends Component {
 
   static renderQuestion(clock, category, question) {
     return (
-      <div>
-        <div className="Question">
-          <p>{clock}</p>
-          <div className="Question_title">
-            <p>{category}</p>
+      <div className="questions-text">
+        <div className="questions-title">
+          <div>
+            <p className="questions-category">{category}</p>
           </div>
-
-          <div className="Question_phrase">
-            <p>{question}</p>
-          </div>
+          <p className="questions-phrase">{question}</p>
         </div>
+        <p className="questions-clock">Tempo: {clock}</p>
       </div>
     );
   }
@@ -143,9 +140,24 @@ class QuestionsTrivia extends Component {
 
   classNameToButton(userAnswer, correctAnswer) {
     const { isAnswered } = this.state;
-    if (!isAnswered) return 'Btn_grey';
-    if (userAnswer === correctAnswer) return 'Btn_green';
-    return 'Btn_red';
+    if (!isAnswered) return 'btn-grey';
+    if (userAnswer === correctAnswer) return 'btn-green';
+    return 'btn-red';
+  }
+
+  buttonNext() {
+    const { isAnswered } = this.state;
+    return (
+      <button
+        type="button"
+        className="btn-next"
+        hidden={!isAnswered}
+        data-testi d="btn-next"
+        onClick={() => this.changeIndex()}
+      >
+        PRÓXIMA
+      </button>
+    );
   }
 
   render() {
@@ -156,9 +168,13 @@ class QuestionsTrivia extends Component {
     const allAnswers = randomQuestions(results, index);
     if (isEndGame) return <Redirect to="/feedback" />;
     return (
-      <div className="Questions_father">
-        {QuestionsTrivia.renderQuestion(clock, results[index].category, results[index].question)}
-        <div className="Selections">
+      <div className="questions-container">
+        {QuestionsTrivia.renderQuestion(
+          clock,
+          results[index].category,
+          results[index].question,
+        )}
+        <div className="questions-buttons">
           {allAnswers.sort().map((answer) => (
             <button
               className={this.classNameToButton(answer, results[index].correct_answer)}
@@ -169,13 +185,7 @@ class QuestionsTrivia extends Component {
             > {answer}
             </button>
           ))}
-          <button
-            type="button"
-            data-testid="btn-next"
-            onClick={() => this.changeIndex()}
-          >
-            Próximo
-            </button>
+          {this.buttonNext()}
         </div>
       </div>
     );
@@ -185,14 +195,12 @@ class QuestionsTrivia extends Component {
 const mapStateToProps = ({
   selectorsChange: { categorie, difficulty, type },
   questionsReducer: { results },
-}) => (
-  {
-    results,
-    categorie,
-    difficulty,
-    type,
-  }
-);
+}) => ({
+  results,
+  categorie,
+  difficulty,
+  type,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getQuestions: (categorie, difficulty, type) =>
