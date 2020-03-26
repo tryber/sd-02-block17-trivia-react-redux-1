@@ -120,11 +120,6 @@ class QuestionsTrivia extends Component {
   }
 
   changeIndex() {
-    const { rightQuestions, score } = this.state;
-    const state = JSON.parse(localStorage.getItem('state'));
-    state.player.assertions = rightQuestions;
-    state.player.score = score;
-    localStorage.setItem('state', JSON.stringify(state));
     if (this.state.index < 4) {
       this.setState({
         index: this.state.index + 1,
@@ -145,10 +140,14 @@ class QuestionsTrivia extends Component {
     const { correct_answer: correctAnswer, difficulty } = objAnswer;
     const newScore = 10 + (calculateScore(difficulty) * this.state.clock);
     if (userAnswer === correctAnswer) {
-      this.setState({
+      this.setState(() => ({
         rightQuestions: this.state.rightQuestions + 1,
         score: this.state.score + newScore,
-      });
+      }));
+      const state = JSON.parse(localStorage.getItem('state'));
+      state.player.assertions += 1;
+      state.player.score += newScore;
+      localStorage.setItem('state', JSON.stringify(state));
       changeScore(newScore);
     }
     this.setState({
