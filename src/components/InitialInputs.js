@@ -7,21 +7,24 @@ import { getToken } from '../services/triviaAPI';
 import '../style/InitialInputs.css';
 import { fetchQuestions } from '../actions';
 import getGravatar from '../services/gravatarAPI';
+import { Redirect } from 'react-router-dom';
 
 async function handleClick(name, email, categorie = '', difficulty = '', type = '', getQuestions) {
-  console.log(name, email, categorie = '', difficulty = '', type = '', getQuestions)
+  console.log(name, email, categorie, difficulty, type, getQuestions)
   const picture = getGravatar(email);
-  const initial = { player: {
-    name,
-    assertions: 0,
-    score: 0,
-    gravatarEmail: email,
-    picture,
-  }};
+  const initial = {
+    player: {
+      name,
+      assertions: 0,
+      score: 0,
+      gravatarEmail: email,
+      picture,
+    }
+  };
   localStorage.setItem('state', JSON.stringify(initial));
   await getToken();
   await getQuestions(`&category=${categorie}`, `&difficulty=${difficulty}`, `&type=${type}`);
-  window.location.href = 'http://localhost:3000/game'
+  return <Redirect to='/game'></Redirect>
 }
 
 const handleChange = (e, handleInputChange) => {
@@ -29,39 +32,42 @@ const handleChange = (e, handleInputChange) => {
   handleInputChange(value, name);
 };
 
-const disableButton = ( name, email ) => {
-  if (name !== '' && email !== ''){
+const disableButton = (name, email) => {
+  if (name !== '' && email !== '') {
     return false;
   }
   return true;
 }
 
-const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type, getQuestions}) => (
-  <div>
-    <div className="container-config-btn" data-testid="config-button">
-      <ConfigurationButton />
-    </div>
-    <div className="home-container">
-      <label className="home-text" htmlFor="email">Email do Gravatar:</label>
-      <input
-        className="home-inputs-and-btn"
-        value={email}
-        id="email"
-        onChange={(event) => handleChange(event, handleInputChange)}
-        name="email"
-        type="text"
-        data-testid="input-gravatar-email"
-      />
-      <label className="home-text" htmlFor="name">Nome do jogador:</label>
-      <input
-        className="home-inputs-and-btn"
-        value={name}
-        id="name"
-        onChange={(event) => handleChange(event, handleInputChange)}
-        name="name"
-        type="text"
-        data-testid="input-player-name"
-      />
+const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type, getQuestions, results }) => {
+  console.log(results, name, email, categorie, difficulty, type);
+  if (results) return (<Redirect to='/game'></Redirect>)
+  return (
+    <div>
+      <div className="container-config-btn" data-testid="config-button">
+        <ConfigurationButton />
+      </div>
+      <div className="home-container">
+        <label className="home-text" htmlFor="email">Email do Gravatar:</label>
+        <input
+          className="home-inputs-and-btn"
+          value={email}
+          id="email"
+          onChange={(event) => handleChange(event, handleInputChange)}
+          name="email"
+          type="text"
+          data-testid="input-gravatar-email"
+        />
+        <label className="home-text" htmlFor="name">Nome do jogador:</label>
+        <input
+          className="home-inputs-and-btn"
+          value={name}
+          id="name"
+          onChange={(event) => handleChange(event, handleInputChange)}
+          name="name"
+          type="text"
+          data-testid="input-player-name"
+        />
         <button
           className="home-inputs-and-btn home-btn-play"
           disabled={disableButton(name, email)}
@@ -70,17 +76,19 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
         >
           JOGAR!
       </button>
+      </div>
     </div>
-  </div>
-);
+  )
+}
 
 const mapStateToProps = ({
   handleInputChange,
   inputChanges: { name, email },
   selectorsChange: { categorie, difficulty, type },
+  questionsReducer: { results },
 }) => (
     {
-      name, email, handleInputChange, categorie, difficulty, type,
+      name, email, handleInputChange, categorie, difficulty, type, results,
     }
   );
 

@@ -104,19 +104,10 @@ class QuestionsTrivia extends Component {
         }));
       }
     }, 1000);
-    this.adjustingFetch();
   }
 
   componentWillUnmount() {
     clearInterval(this.intervalID);
-  }
-
-  adjustingFetch() {
-    const { getQuestions, categorie, difficulty, type } = this.props;
-    const adjustedCategorie = categorie ? `&category=${categorie}` : '';
-    const adjustedDifficult = difficulty ? `&difficulty=${difficulty}` : '';
-    const adjustedType = type ? `&type=${type}` : '';
-    getQuestions(adjustedCategorie, adjustedDifficult, adjustedType);
   }
 
   changeIndex() {
