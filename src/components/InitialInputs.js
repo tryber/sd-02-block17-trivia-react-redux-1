@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { handlingInputChanges } from '../actions';
 import ConfigurationButton from './ConfigurationButton';
-import { getToken, getQuestions } from '../services/triviaAPI';
+import { getToken } from '../services/triviaAPI';
 import '../style/InitialInputs.css';
+import { fetchQuestions } from '../actions';
 import getGravatar from '../services/gravatarAPI';
 
-async function handleClick(name, email, categorie = '', difficulty = '', type = '') {
-  console.log(categorie, difficulty, type);
+async function handleClick(name, email, categorie = '', difficulty = '', type = '', getQuestions) {
+  console.log(name, email, categorie = '', difficulty = '', type = '', getQuestions)
   const picture = getGravatar(email);
   const initial = { player: {
     name,
@@ -20,7 +20,8 @@ async function handleClick(name, email, categorie = '', difficulty = '', type = 
   }};
   localStorage.setItem('state', JSON.stringify(initial));
   await getToken();
-  getQuestions(`&category=${categorie}`, `&difficulty=${difficulty}`, `&type=${type}`);
+  await getQuestions(`&category=${categorie}`, `&difficulty=${difficulty}`, `&type=${type}`);
+  window.location.href = 'http://localhost:3000/game'
 }
 
 const handleChange = (e, handleInputChange) => {
@@ -35,7 +36,7 @@ const disableButton = ( name, email ) => {
   return true;
 }
 
-const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type }) => (
+const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type, getQuestions}) => (
   <div>
     <div className="container-config-btn" data-testid="config-button">
       <ConfigurationButton />
@@ -61,16 +62,14 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
         type="text"
         data-testid="input-player-name"
       />
-      <Link to="/game">
         <button
           className="home-inputs-and-btn home-btn-play"
           disabled={disableButton(name, email)}
-          onClick={() => handleClick(name, email, categorie, difficulty, type)}
+          onClick={() => handleClick(name, email, categorie, difficulty, type, getQuestions)}
           data-testid="btn-play"
         >
           JOGAR!
       </button>
-      </Link>
     </div>
   </div>
 );
@@ -87,9 +86,12 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputChange: (value, name) => dispatch(handlingInputChanges(value, name)),
+  getQuestions: (categorie, difficulty, type) =>
+    dispatch(fetchQuestions(categorie, difficulty, type)),
 });
 
 InitialInputs.propTypes = {
+  getQuestions: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,

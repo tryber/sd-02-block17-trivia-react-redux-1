@@ -182,7 +182,7 @@ class QuestionsTrivia extends Component {
     const { index, isEndGame, clock } = this.state;
     const { results } = this.props;
     if (!results) return <div>Loading...</div>;
-    if (results.length === 0) return QuestionsTrivia.notFound();
+    // if (results.length === 0) return QuestionsTrivia.notFound();
     const allAnswers = randomQuestions(results, index);
     if (isEndGame) return <Redirect to="/feedback" />;
     return (

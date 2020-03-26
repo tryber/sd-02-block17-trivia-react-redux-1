@@ -13,6 +13,7 @@ class Header extends React.Component {
   render() {
     // Feito para passar no Cypress, precisamos mostrar ao Túlio
     const { storeScore } = this.props;
+    console.log(storeScore);
     const state = JSON.parse(localStorage.getItem('state')) || [];
     const { name, picture, score } = state.player;
     return (
