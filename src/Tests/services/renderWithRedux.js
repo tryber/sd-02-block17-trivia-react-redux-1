@@ -3,7 +3,7 @@ import { Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 
-const renderWithRouter = (
+const renderWithRedux = (
   ui,
   { route = '/', history = createMemoryHistory({ initialEntries: [route] }) } = {},
 ) => ({
@@ -11,4 +11,4 @@ const renderWithRouter = (
   history,
 });
 
-export default renderWithRouter;
+export default renderWithRedux;
