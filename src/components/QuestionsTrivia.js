@@ -104,10 +104,19 @@ class QuestionsTrivia extends Component {
         }));
       }
     }, 1000);
+    this.adjustingFetch();
   }
 
   componentWillUnmount() {
     clearInterval(this.intervalID);
+  }
+
+  adjustingFetch() {
+    const { getQuestions, categorie, difficulty, type } = this.props;
+    const adjustedCategorie = categorie ? `&category=${categorie}` : '';
+    const adjustedDifficult = difficulty ? `&difficulty=${difficulty}` : '';
+    const adjustedType = type ? `&type=${type}` : '';
+    getQuestions(adjustedCategorie, adjustedDifficult, adjustedType);
   }
 
   changeIndex() {
@@ -173,7 +182,7 @@ class QuestionsTrivia extends Component {
     const { index, isEndGame, clock } = this.state;
     const { results } = this.props;
     if (!results) return <div>Loading...</div>;
-    // if (results.length === 0) return QuestionsTrivia.notFound();
+    if (results.length === 0) return QuestionsTrivia.notFound();
     const allAnswers = randomQuestions(results, index);
     if (isEndGame) return <Redirect to="/feedback" />;
     return (

@@ -9,8 +9,8 @@ import { fetchQuestions } from '../actions';
 import getGravatar from '../services/gravatarAPI';
 import { Redirect } from 'react-router-dom';
 
-async function handleClick(name, email, categorie = '', difficulty = '', type = '', getQuestions) {
-  console.log(name, email, categorie, difficulty, type, getQuestions)
+async function handleClick(name, email) {
+  console.log(name, email, categorie, difficulty, type)
   const picture = getGravatar(email);
   const initial = {
     player: {
@@ -23,8 +23,6 @@ async function handleClick(name, email, categorie = '', difficulty = '', type = 
   };
   localStorage.setItem('state', JSON.stringify(initial));
   await getToken();
-  await getQuestions(`&category=${categorie}`, `&difficulty=${difficulty}`, `&type=${type}`);
-  return <Redirect to='/game'></Redirect>
 }
 
 const handleChange = (e, handleInputChange) => {
@@ -71,7 +69,7 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
         <button
           className="home-inputs-and-btn home-btn-play"
           disabled={disableButton(name, email)}
-          onClick={() => handleClick(name, email, categorie, difficulty, type, getQuestions)}
+          onClick={() => handleClick(name, email)}
           data-testid="btn-play"
         >
           JOGAR!
