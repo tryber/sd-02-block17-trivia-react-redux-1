@@ -40,7 +40,8 @@ class QuestionsTrivia extends Component {
   }
 
   static setRanking() {
-    const { name, score, picture } = JSON.parse(localStorage.getItem('player'));
+    const state = JSON.parse(localStorage.getItem('state'));
+    const { name, score, picture } = state.player;
     const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
     const newPlayer = { name, score, picture };
     const newRanking = [...ranking, newPlayer];
@@ -120,10 +121,10 @@ class QuestionsTrivia extends Component {
 
   changeIndex() {
     const { rightQuestions, score } = this.state;
-    const player = JSON.parse(localStorage.getItem('player'));
-    player.assertions = rightQuestions;
-    player.score = score;
-    localStorage.setItem('player', JSON.stringify(player));
+    const state = JSON.parse(localStorage.getItem('state'));
+    state.player.assertions = rightQuestions;
+    state.player.score = score;
+    localStorage.setItem('state', JSON.stringify(state));
     if (this.state.index < 4) {
       this.setState({
         index: this.state.index + 1,

@@ -11,14 +11,14 @@ import getGravatar from '../services/gravatarAPI';
 async function handleClick(name, email, categorie = '', difficulty = '', type = '') {
   console.log(categorie, difficulty, type);
   const picture = getGravatar(email);
-  const playerStatus = {
+  const initial = { player: {
     name,
     assertions: 0,
     score: 0,
     gravatarEmail: email,
     picture,
-  };
-  localStorage.setItem('player', JSON.stringify(playerStatus));
+  }};
+  localStorage.setItem('state', JSON.stringify(initial));
   await getToken();
   getQuestions(`&category=${categorie}`, `&difficulty=${difficulty}`, `&type=${type}`);
 }
@@ -27,6 +27,13 @@ const handleChange = (e, handleInputChange) => {
   const { name, value } = e.target;
   handleInputChange(value, name);
 };
+
+const disableButton = ( name, email ) => {
+  if (name !== '' && email !== ''){
+    return false;
+  }
+  return true;
+}
 
 const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type }) => (
   <div>
@@ -57,6 +64,7 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
       <Link to="/game">
         <button
           className="home-inputs-and-btn home-btn-play"
+          disabled={disableButton(name, email)}
           onClick={() => handleClick(name, email, categorie, difficulty, type)}
           data-testid="btn-play"
         >
@@ -72,10 +80,10 @@ const mapStateToProps = ({
   inputChanges: { name, email },
   selectorsChange: { categorie, difficulty, type },
 }) => (
-  {
-    name, email, handleInputChange, categorie, difficulty, type,
-  }
-);
+    {
+      name, email, handleInputChange, categorie, difficulty, type,
+    }
+  );
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputChange: (value, name) => dispatch(handlingInputChanges(value, name)),

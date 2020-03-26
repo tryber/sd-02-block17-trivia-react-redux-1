@@ -5,9 +5,9 @@ import PlayAgain from '../components/PlayAgain';
 import '../style/Feedback.css';
 
 const Feedback = () => {
-  const player = JSON.parse(localStorage.getItem('player'));
-  const { assertions, score } = player;
-  const answerTitle = assertions >= 3 ? 'Mandou Bem!' : 'Podia ser Melhor...';
+  const state = JSON.parse(localStorage.getItem('state')) || [];
+  const { assertions, score } = state.player;
+  const answerTitle = assertions >= 3 ? 'Mandou bem!' : 'Podia ser melhor...';
   return (
     <div>
       <Header />
