@@ -59,9 +59,24 @@ class SettingSelectors extends Component {
           value={type} name="type"
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
         >
-          <option value="">Escolha um tipo</option>
-          <option value="boolean">V ou F</option>
-          <option value="multiple">Múltipla Escolha</option>
+          <option
+            data-testid="question-category-dropdown"
+            value=""
+          >
+            Escolha um tipo
+          </option>
+          <option
+            data-testid="question-difficulty-dropdown"
+            value="boolean"
+          >
+            V ou F
+          </option>
+          <option
+            data-testid="question-type-dropdown"
+            value="multiple"
+          >
+            Múltipla Escolha
+          </option>
         </select>
       </div>
     );

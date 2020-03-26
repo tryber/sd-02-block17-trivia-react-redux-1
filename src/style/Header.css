@@ -27,3 +27,8 @@
   font-size: 2em;
   padding-right: 2em;
 }
+
+.Header_score {
+  display: flex;
+  flex-flow: row nowrap;
+}

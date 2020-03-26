@@ -52,11 +52,26 @@ class QuestionsTrivia extends Component {
       <div className="questions-text">
         <div className="questions-title">
           <div>
-            <p className="questions-category">{category}</p>
+            <p
+              data-testid="question-category"
+              className="questions-category"
+            >
+              {category}
+            </p>
           </div>
-          <p className="questions-phrase">{question}</p>
+          <p
+            data-testid="question-text"
+            className="questions-phrase"
+          >
+            {question}
+          </p>
         </div>
-        <p className="questions-clock">Tempo: {clock}</p>
+        <p
+          data-testid="timer"
+          className="questions-clock"
+        >
+          Tempo: {clock}
+        </p>
       </div>
     );
   }
@@ -74,7 +89,28 @@ class QuestionsTrivia extends Component {
   }
 
   componentDidMount() {
-    this.clockTimer();
+    this.intervalID = setInterval(() => {
+      const { clock } = this.state;
+      if (clock > 0) {
+        this.setState((prevState) => ({
+          clock: prevState.clock - 1,
+        }));
+      }
+      if (clock === 0) {
+        clearInterval(this.clockTimer);
+        this.setState(() => ({
+          isAnswered: true,
+        }));
+      }
+    }, 1000);
+    this.adjustingFetch();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
+  adjustingFetch() {
     const { getQuestions, categorie, difficulty, type } = this.props;
     const adjustedCategorie = categorie ? `&category=${categorie}` : '';
     const adjustedDifficult = difficulty ? `&difficulty=${difficulty}` : '';
@@ -84,8 +120,6 @@ class QuestionsTrivia extends Component {
 
   changeIndex() {
     const { rightQuestions, score } = this.state;
-    console.log(rightQuestions);
-    console.log(score);
     const player = JSON.parse(localStorage.getItem('player'));
     player.assertions = rightQuestions;
     player.score = score;
@@ -103,23 +137,6 @@ class QuestionsTrivia extends Component {
       });
       QuestionsTrivia.setRanking();
     }
-  }
-
-  clockTimer() {
-    setInterval(() => {
-      const { clock } = this.state;
-      if (clock > 0) {
-        this.setState((prevState) => ({
-          clock: prevState.clock - 1,
-        }));
-      }
-      if (clock === 0) {
-        clearInterval(this.clockTimer);
-        this.setState(() => ({
-          isAnswered: true,
-        }));
-      }
-    }, 1000);
   }
 
   validAnswer(userAnswer, objAnswer) {
@@ -152,7 +169,7 @@ class QuestionsTrivia extends Component {
         type="button"
         className="btn-next"
         hidden={!isAnswered}
-        data-testi d="btn-next"
+        data-testid="btn-next"
         onClick={() => this.changeIndex()}
       >
         PRÓXIMA
@@ -195,12 +212,7 @@ class QuestionsTrivia extends Component {
 const mapStateToProps = ({
   selectorsChange: { categorie, difficulty, type },
   questionsReducer: { results },
-}) => ({
-  results,
-  categorie,
-  difficulty,
-  type,
-});
+}) => ({ results, categorie, difficulty, type });
 
 const mapDispatchToProps = (dispatch) => ({
   getQuestions: (categorie, difficulty, type) =>
@@ -210,11 +222,16 @@ const mapDispatchToProps = (dispatch) => ({
 
 QuestionsTrivia.propTypes = {
   getQuestions: PropTypes.func.isRequired,
-  results: PropTypes.instanceOf(Array).isRequired,
+  results: PropTypes.instanceOf(Array),
   categorie: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   changeScore: PropTypes.func.isRequired,
+};
+
+
+QuestionsTrivia.defaultProps = {
+  results: [],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionsTrivia);
