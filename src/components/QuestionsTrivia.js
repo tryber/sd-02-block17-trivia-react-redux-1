@@ -90,6 +90,7 @@ class QuestionsTrivia extends Component {
   }
 
   componentDidMount() {
+    this.adjustingFetch();
     this.intervalID = setInterval(() => {
       const { clock } = this.state;
       if (clock > 0) {
@@ -104,7 +105,6 @@ class QuestionsTrivia extends Component {
         }));
       }
     }, 1000);
-    this.adjustingFetch();
   }
 
   componentWillUnmount() {

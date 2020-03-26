@@ -19,7 +19,7 @@ const receiveQuestionsFailure = (error) => ({
   error,
 });
 
-const receiveQuestionsSuccess = ({ results }) => ({
+const receiveQuestionsSuccess = ({ results, response_code }) => ({
   type: RECEIVE_Q_SUCCESS,
   results,
 });

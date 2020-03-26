@@ -7,10 +7,9 @@ import { getToken } from '../services/triviaAPI';
 import '../style/InitialInputs.css';
 import { fetchQuestions } from '../actions';
 import getGravatar from '../services/gravatarAPI';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 async function handleClick(name, email) {
-  console.log(name, email, categorie, difficulty, type)
   const picture = getGravatar(email);
   const initial = {
     player: {
@@ -39,7 +38,6 @@ const disableButton = (name, email) => {
 
 const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type, getQuestions, results }) => {
   console.log(results, name, email, categorie, difficulty, type);
-  if (results) return (<Redirect to='/game'></Redirect>)
   return (
     <div>
       <div className="container-config-btn" data-testid="config-button">
@@ -66,14 +64,16 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
           type="text"
           data-testid="input-player-name"
         />
-        <button
-          className="home-inputs-and-btn home-btn-play"
-          disabled={disableButton(name, email)}
-          onClick={() => handleClick(name, email)}
-          data-testid="btn-play"
-        >
-          JOGAR!
+        <Link to="/game">
+          <button
+            className="home-inputs-and-btn home-btn-play"
+            disabled={disableButton(name, email)}
+            onClick={() => handleClick(name, email)}
+            data-testid="btn-play"
+          >
+            JOGAR!
       </button>
+        </Link>
       </div>
     </div>
   )
