@@ -15,7 +15,7 @@ const handleClick = (changeScore) => {
 };
 
 const PlayAgain = ({ buttonName, changeScore }) => (
-  <Link to="/questions">
+  <Link to="/game">
     <button
       onClick={() => handleClick(changeScore)}
       className="Button_play-again"

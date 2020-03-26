@@ -52,11 +52,26 @@ class QuestionsTrivia extends Component {
       <div className="questions-text">
         <div className="questions-title">
           <div>
-            <p className="questions-category">{category}</p>
+            <p
+              data-testid="question-category"
+              className="questions-category"
+            >
+              {category}
+            </p>
           </div>
-          <p className="questions-phrase">{question}</p>
+          <p
+            data-testid="question-text"
+            className="questions-phrase"
+          >
+            {question}
+          </p>
         </div>
-        <p className="questions-clock">Tempo: {clock}</p>
+        <p
+          data-testid="timer"
+          className="questions-clock"
+        >
+          Tempo: {clock}
+        </p>
       </div>
     );
   }
@@ -88,7 +103,14 @@ class QuestionsTrivia extends Component {
         }));
       }
     }, 1000);
+    this.adjustingFetch();
+  }
 
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
+  adjustingFetch() {
     const { getQuestions, categorie, difficulty, type } = this.props;
     const adjustedCategorie = categorie ? `&category=${categorie}` : '';
     const adjustedDifficult = difficulty ? `&difficulty=${difficulty}` : '';
@@ -147,7 +169,7 @@ class QuestionsTrivia extends Component {
         type="button"
         className="btn-next"
         hidden={!isAnswered}
-        data-testi d="btn-next"
+        data-testid="btn-next"
         onClick={() => this.changeIndex()}
       >
         PRÓXIMA
@@ -155,10 +177,6 @@ class QuestionsTrivia extends Component {
     );
   }
 
-  componentWillUnmount() {
-    clearInterval(this.intervalID);
-  }
-  
   render() {
     const { index, isEndGame, clock } = this.state;
     const { results } = this.props;
@@ -194,12 +212,7 @@ class QuestionsTrivia extends Component {
 const mapStateToProps = ({
   selectorsChange: { categorie, difficulty, type },
   questionsReducer: { results },
-}) => ({
-  results,
-  categorie,
-  difficulty,
-  type,
-});
+}) => ({ results, categorie, difficulty, type });
 
 const mapDispatchToProps = (dispatch) => ({
   getQuestions: (categorie, difficulty, type) =>

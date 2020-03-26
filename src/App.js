@@ -14,7 +14,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/settings" component={Settings} />
-        <Route path="/questions" component={Questions} />
+        <Route path="/game" component={Questions} />
         <Route path="/feedback" component={Feedback} />
         <Route path="/ranking" component={Ranking} />
       </Switch>

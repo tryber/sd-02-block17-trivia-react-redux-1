@@ -12,9 +12,9 @@ const Feedback = () => {
     <div>
       <Header />
       <div className="Feedback_father-div">
-        <h1>{answerTitle}</h1>
-        <p>Você acertou {assertions} questões!</p>
-        <p>Um total de {score} pontos</p>
+        <h1 data-testid="feedback-text">{answerTitle}</h1>
+        <p data-testid="feedback-total-question">Você acertou {assertions} questões!</p>
+        <p data-testid="feedback-total-score">Um total de {score} pontos</p>
         <ToRanking buttonName={'Ver Ranking'} />
         <PlayAgain buttonName={'Jogar Novamente'} />
       </div>

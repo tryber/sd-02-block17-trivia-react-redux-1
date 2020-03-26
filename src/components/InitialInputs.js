@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { handlingInputChanges } from '../actions';
-import ConfigurationButon from './ConfigurationButton';
+import ConfigurationButton from './ConfigurationButton';
 import { getToken, getQuestions } from '../services/triviaAPI';
 import '../style/InitialInputs.css';
 import getGravatar from '../services/gravatarAPI';
@@ -31,7 +31,7 @@ const handleChange = (e, handleInputChange) => {
 const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type }) => (
   <div>
     <div className="container-config-btn" data-testid="config-button">
-      <ConfigurationButon />
+      <ConfigurationButton />
     </div>
     <div className="home-container">
       <label className="home-text" htmlFor="email">Email do Gravatar:</label>
@@ -54,7 +54,7 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
         type="text"
         data-testid="input-player-name"
       />
-      <Link to="/questions">
+      <Link to="/game">
         <button
           className="home-inputs-and-btn home-btn-play"
           onClick={() => handleClick(name, email, categorie, difficulty, type)}
