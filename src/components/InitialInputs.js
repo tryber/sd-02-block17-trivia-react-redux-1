@@ -5,7 +5,6 @@ import ConfigurationButton from './ConfigurationButton';
 import { connect } from 'react-redux';
 import { handlingInputChanges } from '../actions';
 import { getToken } from '../services/triviaAPI';
-import { fetchQuestions } from '../actions';
 import { Link } from 'react-router-dom';
 import '../style/InitialInputs.css';
 
