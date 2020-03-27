@@ -30,7 +30,7 @@ const handleChange = (e, handleInputChange) => {
 
 const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type }) => (
   <div>
-    <div className="container-config-btn" data-testid="config-button">
+    <div className="container-config-btn">
       <ConfigurationButton />
     </div>
     <div className="home-container">
@@ -72,10 +72,10 @@ const mapStateToProps = ({
   inputChanges: { name, email },
   selectorsChange: { categorie, difficulty, type },
 }) => (
-  {
-    name, email, handleInputChange, categorie, difficulty, type,
-  }
-);
+    {
+      name, email, handleInputChange, categorie, difficulty, type,
+    }
+  );
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputChange: (value, name) => dispatch(handlingInputChanges(value, name)),

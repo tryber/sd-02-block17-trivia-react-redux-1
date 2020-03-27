@@ -1,12 +1,8 @@
 import React from 'react';
-import { cleanup } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { createStore, combineReducers } from 'redux';
-import InitialInputs from '../components/InitialInputs';
 import App from '../App';
-
-afterEach(cleanup);
 
 const initialState = {
   name: '',
@@ -58,9 +54,25 @@ const renderWithRedux = (
   });
 
 describe('1. Home', () => {
-  test('Initial page renders all data to start game', () => {
-    const { getByText } = renderWithRedux(<App />);
+  test('Initial page renders all data, inputs and button to start game', () => {
+    const { getByText, getByTestId } = renderWithRedux(<App />);
+    
     const emailTitle = getByText(/Email do Gravatar/i);
     expect(emailTitle).toBeInTheDocument();
+
+    const inputEmail = getByTestId(/input-gravatar-email/i)
+    expect(inputEmail).toBeInTheDocument()
+    expect(inputEmail.tagName).toBe('INPUT');
+
+    const nameTitle = getByText(/Nome do jogador/i);
+    expect(nameTitle).toBeInTheDocument();
+
+    const nameInput = getByTestId(/input-player-name/i);
+    expect(nameInput).toBeInTheDocument();
+    expect(nameInput.tagName).toBe('INPUT');
+
+    const configButton = getByTestId(/config-button/i);
+    expect(configButton).toBeInTheDocument();
+    expect(configButton.tagName).toBe('BUTTON');
   });
 });
