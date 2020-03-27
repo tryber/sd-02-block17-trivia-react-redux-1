@@ -9,10 +9,8 @@ import App from '../App';
 afterEach(cleanup);
 
 const initialState = {
-  // inputChanges: {
-    name: '',
-    email: '',
-  // }
+  name: '',
+  email: '',
 };
 
 const inputChanges = (state = initialState, action) => {
