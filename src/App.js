@@ -8,16 +8,20 @@ import Feedback from './pages/Feedback';
 import Ranking from './pages/Ranking';
 import './style/App.css';
 
-export default function App() {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/game" component={Questions} />
-        <Route path="/feedback" component={Feedback} />
-        <Route path="/ranking" component={Ranking} />
-      </Switch>
-    </BrowserRouter>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/game" component={Questions} />
+          <Route path="/feedback" component={Feedback} />
+          <Route path="/ranking" component={Ranking} />
+        </Switch>
+      </BrowserRouter >
+    );
+  }
 }
+
+export default App;
