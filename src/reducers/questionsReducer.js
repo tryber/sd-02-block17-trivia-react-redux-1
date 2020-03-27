@@ -14,6 +14,7 @@ const questionsReducer = (state = INITIAL_Q_STATE, action) => {
         isFetching: true,
       };
     case RECEIVE_Q_SUCCESS:
+      console.log(results, responseCode)
       return {
         ...state,
         isFetching: false,

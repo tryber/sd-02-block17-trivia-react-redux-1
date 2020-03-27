@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchQuestions, handleScoreChanges } from '../actions';
@@ -30,12 +30,7 @@ class QuestionsTrivia extends Component {
 
   static notFound() {
     return (
-      <div>
-        <h1>Não foram encontradas perguntas</h1>
-        <Link to="/">
-          <button>Voltar ao início</button>
-        </Link>
-      </div>
+      <Redirect to="/"></Redirect>
     );
   }
 
@@ -117,7 +112,8 @@ class QuestionsTrivia extends Component {
     const adjustedCategorie = categorie ? `&category=${categorie}` : '';
     const adjustedDifficult = difficulty ? `&difficulty=${difficulty}` : '';
     const adjustedType = type ? `&type=${type}` : '';
-    const token = `&token=${localStorage.getItem('token')}`;
+    let token = `&token=${localStorage.getItem('token')}`;
+    if (localStorage.getItem('token') === null) token='';
     console.log(token, adjustedCategorie, adjustedDifficult, adjustedType);
     getQuestions(adjustedCategorie, adjustedDifficult, adjustedType, token);
   }
@@ -184,8 +180,8 @@ class QuestionsTrivia extends Component {
     const { index, isEndGame, clock } = this.state;
     const { results, responseCode, isFetching } = this.props;
     console.log(responseCode);
-    if (isFetching) return <div>Loading...</div>;
-    if (results.length === 0) return QuestionsTrivia.notFound();
+    if (isFetching || responseCode === 1) return <div>Loading...</div>;
+    if (responseCode === 3) return QuestionsTrivia.notFound();
     const allAnswers = randomQuestions(results, index);
     if (isEndGame) return <Redirect to="/feedback" />;
     return (
@@ -236,6 +232,7 @@ QuestionsTrivia.propTypes = {
 
 QuestionsTrivia.defaultProps = {
   results: [],
+  responseCode: 1,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionsTrivia);
