@@ -72,3 +72,4 @@ describe('Game', () => {
         cy.get('[data-testid="input-player-name"]')
     })
 })
+
