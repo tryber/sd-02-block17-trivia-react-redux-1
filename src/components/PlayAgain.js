@@ -6,16 +6,16 @@ import { handleScoreChanges } from '../actions';
 import '../style/Buttons.css';
 
 const handleClick = (changeScore) => {
-  const player = JSON.parse(localStorage.getItem('player'));
-  const invertedScore = player.score * -1;
-  player.assertions = 0;
-  player.score = 0;
-  localStorage.setItem('player', JSON.stringify(player));
+  const state = JSON.parse(localStorage.getItem('state'));
+  const invertedScore = state.player.score * -1;
+  state.player.assertions = 0;
+  state.player.score = 0;
+  localStorage.setItem('state', JSON.stringify(state));
   changeScore(invertedScore);
 };
 
 const PlayAgain = ({ buttonName, changeScore }) => (
-  <Link to="/game">
+  <Link to="/">
     <button
       onClick={() => handleClick(changeScore)}
       className="Button_play-again"

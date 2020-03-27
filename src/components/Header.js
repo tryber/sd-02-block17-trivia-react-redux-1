@@ -11,9 +11,9 @@ const showConfig = () => {
 
 class Header extends React.Component {
   render() {
-    const { score } = this.props;
-    const player = JSON.parse(localStorage.getItem('player'));
-    const { name, picture } = player;
+    const state = JSON.parse(localStorage.getItem('state')) || [];
+    const { name, picture, score } = state.player || '';
+    console.log('point now', score);
     return (
       <div className="Header_father">
         <div className="Header_image-and-name">
@@ -26,7 +26,7 @@ class Header extends React.Component {
             data-testid="header-player-name"
             className="Header_player-name"
           >
-            Jogador: {name}
+            Jogador: {name || ''}
           </p>
         </div>
         <div className="Header_score">
@@ -43,7 +43,7 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = ({ scoreChangeReducer: { score } }) => ({ score });
+const mapStateToProps = ({ scoreChangeReducer: { score } }) => ({ storeScore: score });
 
 Header.propTypes = {
   score: PropTypes.number.isRequired,

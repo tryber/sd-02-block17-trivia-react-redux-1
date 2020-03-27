@@ -19,16 +19,17 @@ const receiveQuestionsFailure = (error) => ({
   error,
 });
 
-const receiveQuestionsSuccess = ({ results }) => ({
+const receiveQuestionsSuccess = ({ results, response_code: responseCode }) => ({
   type: RECEIVE_Q_SUCCESS,
   results,
+  responseCode,
 });
 
-export function fetchQuestions(categorie, difficult, type) {
+export function fetchQuestions(categorie, difficult, type, token) {
   return (dispatch) => {
     dispatch(requestQuestions());
 
-    return getsQuestions(categorie, difficult, type)
+    return getsQuestions(categorie, difficult, type, token)
       .then(
         (questions) => dispatch(receiveQuestionsSuccess(questions)),
         (error) => dispatch(receiveQuestionsFailure(error.message)),

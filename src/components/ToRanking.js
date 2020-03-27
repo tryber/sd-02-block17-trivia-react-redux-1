@@ -6,10 +6,8 @@ import { handleScoreChanges } from '../actions';
 import '../style/Buttons.css';
 
 const handleClick = (changeScore) => {
-  const player = JSON.parse(localStorage.getItem('player'));
-  const invertedScore = player.score * -1;
-  player.assertions = 0;
-  player.score = 0;
+  const state = JSON.parse(localStorage.getItem('state'));
+  const invertedScore = state.player.score * -1;
   changeScore(invertedScore);
 };
 
