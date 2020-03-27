@@ -30,7 +30,7 @@ class QuestionsTrivia extends Component {
 
   static notFound() {
     return (
-      <Redirect to="/"></Redirect>
+      <Redirect to="/" />
     );
   }
 
@@ -100,7 +100,6 @@ class QuestionsTrivia extends Component {
         }));
       }
     }, 1000);
-
   }
 
   componentWillUnmount() {
@@ -113,7 +112,7 @@ class QuestionsTrivia extends Component {
     const adjustedDifficult = difficulty ? `&difficulty=${difficulty}` : '';
     const adjustedType = type ? `&type=${type}` : '';
     let token = `&token=${localStorage.getItem('token')}`;
-    if (localStorage.getItem('token') === null) token='';
+    if (localStorage.getItem('token') === null) token = '';
     console.log(token, adjustedCategorie, adjustedDifficult, adjustedType);
     getQuestions(adjustedCategorie, adjustedDifficult, adjustedType, token);
   }
@@ -227,6 +226,8 @@ QuestionsTrivia.propTypes = {
   difficulty: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   changeScore: PropTypes.func.isRequired,
+  responseCode: PropTypes.number.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 
