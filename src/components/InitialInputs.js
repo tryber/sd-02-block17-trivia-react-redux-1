@@ -1,11 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import getGravatar from '../services/gravatarAPI';
 import ConfigurationButton from './ConfigurationButton';
-import { connect } from 'react-redux';
 import { handlingInputChanges } from '../actions';
 import { getToken } from '../services/triviaAPI';
-import { Link } from 'react-router-dom';
 import '../style/InitialInputs.css';
 
 async function handleClick(name, email) {
@@ -36,7 +36,7 @@ const disableButton = (name, email) => {
 };
 
 const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type }) => {
-  console.log( name, email, categorie, difficulty, type);
+  console.log(name, email, categorie, difficulty, type);
   return (
     <div>
       <div className="container-config-btn" data-testid="config-button">
