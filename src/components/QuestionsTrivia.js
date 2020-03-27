@@ -89,7 +89,7 @@ class QuestionsTrivia extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.adjustingFetch();
     this.intervalID = setInterval(() => {
       const { clock } = this.state;
@@ -105,6 +105,7 @@ class QuestionsTrivia extends Component {
         }));
       }
     }, 1000);
+
   }
 
   componentWillUnmount() {
@@ -116,7 +117,9 @@ class QuestionsTrivia extends Component {
     const adjustedCategorie = categorie ? `&category=${categorie}` : '';
     const adjustedDifficult = difficulty ? `&difficulty=${difficulty}` : '';
     const adjustedType = type ? `&type=${type}` : '';
-    getQuestions(adjustedCategorie, adjustedDifficult, adjustedType);
+    const token = `&token=${localStorage.getItem('token')}`;
+    console.log(token, adjustedCategorie, adjustedDifficult, adjustedType);
+    getQuestions(adjustedCategorie, adjustedDifficult, adjustedType, token);
   }
 
   changeIndex() {
@@ -179,8 +182,9 @@ class QuestionsTrivia extends Component {
 
   render() {
     const { index, isEndGame, clock } = this.state;
-    const { results } = this.props;
-    if (!results) return <div>Loading...</div>;
+    const { results, responseCode, isFetching } = this.props;
+    console.log(responseCode);
+    if (isFetching) return <div>Loading...</div>;
     if (results.length === 0) return QuestionsTrivia.notFound();
     const allAnswers = randomQuestions(results, index);
     if (isEndGame) return <Redirect to="/feedback" />;
@@ -211,12 +215,12 @@ class QuestionsTrivia extends Component {
 
 const mapStateToProps = ({
   selectorsChange: { categorie, difficulty, type },
-  questionsReducer: { results },
-}) => ({ results, categorie, difficulty, type });
+  questionsReducer: { results, responseCode, isFetching },
+}) => ({ results, categorie, difficulty, type, responseCode, isFetching });
 
 const mapDispatchToProps = (dispatch) => ({
-  getQuestions: (categorie, difficulty, type) =>
-    dispatch(fetchQuestions(categorie, difficulty, type)),
+  getQuestions: (categorie, difficulty, type, token) =>
+    dispatch(fetchQuestions(categorie, difficulty, type, token)),
   changeScore: (value) => dispatch(handleScoreChanges(value)),
 });
 

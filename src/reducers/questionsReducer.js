@@ -6,7 +6,7 @@ const INITIAL_Q_STATE = {
 
 const questionsReducer = (state = INITIAL_Q_STATE, action) => {
   // console.log('received action: ', action);
-  const { results } = action;
+  const { results, responseCode } = action;
   switch (action.type) {
     case REQUEST_QUESTIONS:
       return {
@@ -16,7 +16,9 @@ const questionsReducer = (state = INITIAL_Q_STATE, action) => {
     case RECEIVE_Q_SUCCESS:
       return {
         ...state,
+        isFetching: false,
         results,
+        responseCode,
       };
     case RECEIVE_Q_FAILURE:
       return {

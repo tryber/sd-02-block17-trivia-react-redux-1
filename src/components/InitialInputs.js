@@ -36,7 +36,7 @@ const disableButton = (name, email) => {
   return true;
 }
 
-const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type, getQuestions, results }) => {
+const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type, results }) => {
   console.log(results, name, email, categorie, difficulty, type);
   return (
     <div>
@@ -47,7 +47,7 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
         <label className="home-text" htmlFor="email">Email do Gravatar:</label>
         <input
           className="home-inputs-and-btn"
-          value={email}
+          value={email || ''}
           id="email"
           onChange={(event) => handleChange(event, handleInputChange)}
           name="email"
@@ -57,7 +57,7 @@ const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, 
         <label className="home-text" htmlFor="name">Nome do jogador:</label>
         <input
           className="home-inputs-and-btn"
-          value={name}
+          value={name || ''}
           id="name"
           onChange={(event) => handleChange(event, handleInputChange)}
           name="name"

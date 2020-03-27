@@ -12,7 +12,7 @@ const showConfig = () => {
 class Header extends React.Component {
   render() {
     const state = JSON.parse(localStorage.getItem('state')) || [];
-    const { name, picture, score } = state.player;
+    const { name, picture, score } = state.player || '';
     console.log('point now', score);
     return (
       <div className="Header_father">
@@ -26,7 +26,7 @@ class Header extends React.Component {
             data-testid="header-player-name"
             className="Header_player-name"
           >
-            Jogador: {name}
+            Jogador: {name || ''}
           </p>
         </div>
         <div className="Header_score">
