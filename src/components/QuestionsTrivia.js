@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchQuestions, handleScoreChanges } from '../actions';
@@ -30,17 +30,13 @@ class QuestionsTrivia extends Component {
 
   static notFound() {
     return (
-      <div>
-        <h1>Não foram encontradas perguntas</h1>
-        <Link to="/">
-          <button>Voltar ao início</button>
-        </Link>
-      </div>
+      <Redirect to="/" />
     );
   }
 
   static setRanking() {
-    const { name, score, picture } = JSON.parse(localStorage.getItem('player'));
+    const state = JSON.parse(localStorage.getItem('state'));
+    const { name, score, picture } = state.player;
     const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
     const newPlayer = { name, score, picture };
     const newRanking = [...ranking, newPlayer];
@@ -88,7 +84,8 @@ class QuestionsTrivia extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    this.adjustingFetch();
     this.intervalID = setInterval(() => {
       const { clock } = this.state;
       if (clock > 0) {
@@ -103,7 +100,6 @@ class QuestionsTrivia extends Component {
         }));
       }
     }, 1000);
-    this.adjustingFetch();
   }
 
   componentWillUnmount() {
@@ -115,15 +111,13 @@ class QuestionsTrivia extends Component {
     const adjustedCategorie = categorie ? `&category=${categorie}` : '';
     const adjustedDifficult = difficulty ? `&difficulty=${difficulty}` : '';
     const adjustedType = type ? `&type=${type}` : '';
-    getQuestions(adjustedCategorie, adjustedDifficult, adjustedType);
+    let token = `&token=${localStorage.getItem('token')}`;
+    if (localStorage.getItem('token') === null) token = '';
+    console.log(token, adjustedCategorie, adjustedDifficult, adjustedType);
+    getQuestions(adjustedCategorie, adjustedDifficult, adjustedType, token);
   }
 
   changeIndex() {
-    const { rightQuestions, score } = this.state;
-    const player = JSON.parse(localStorage.getItem('player'));
-    player.assertions = rightQuestions;
-    player.score = score;
-    localStorage.setItem('player', JSON.stringify(player));
     if (this.state.index < 4) {
       this.setState({
         index: this.state.index + 1,
@@ -144,10 +138,14 @@ class QuestionsTrivia extends Component {
     const { correct_answer: correctAnswer, difficulty } = objAnswer;
     const newScore = 10 + (calculateScore(difficulty) * this.state.clock);
     if (userAnswer === correctAnswer) {
-      this.setState({
+      this.setState(() => ({
         rightQuestions: this.state.rightQuestions + 1,
         score: this.state.score + newScore,
-      });
+      }));
+      const state = JSON.parse(localStorage.getItem('state'));
+      state.player.assertions += 1;
+      state.player.score += newScore;
+      localStorage.setItem('state', JSON.stringify(state));
       changeScore(newScore);
     }
     this.setState({
@@ -179,9 +177,10 @@ class QuestionsTrivia extends Component {
 
   render() {
     const { index, isEndGame, clock } = this.state;
-    const { results } = this.props;
-    if (!results) return <div>Loading...</div>;
-    if (results.length === 0) return QuestionsTrivia.notFound();
+    const { results, responseCode, isFetching } = this.props;
+    console.log(responseCode);
+    if (isFetching || responseCode === 1) return <div>Loading...</div>;
+    if (responseCode === 3) return QuestionsTrivia.notFound();
     const allAnswers = randomQuestions(results, index);
     if (isEndGame) return <Redirect to="/feedback" />;
     return (
@@ -211,12 +210,12 @@ class QuestionsTrivia extends Component {
 
 const mapStateToProps = ({
   selectorsChange: { categorie, difficulty, type },
-  questionsReducer: { results },
-}) => ({ results, categorie, difficulty, type });
+  questionsReducer: { results, responseCode, isFetching },
+}) => ({ results, categorie, difficulty, type, responseCode, isFetching });
 
 const mapDispatchToProps = (dispatch) => ({
-  getQuestions: (categorie, difficulty, type) =>
-    dispatch(fetchQuestions(categorie, difficulty, type)),
+  getQuestions: (categorie, difficulty, type, token) =>
+    dispatch(fetchQuestions(categorie, difficulty, type, token)),
   changeScore: (value) => dispatch(handleScoreChanges(value)),
 });
 
@@ -227,11 +226,14 @@ QuestionsTrivia.propTypes = {
   difficulty: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   changeScore: PropTypes.func.isRequired,
+  responseCode: PropTypes.number.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 
 QuestionsTrivia.defaultProps = {
   results: [],
+  responseCode: 1,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionsTrivia);
