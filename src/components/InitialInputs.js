@@ -35,57 +35,55 @@ const disableButton = (name, email) => {
   return true;
 };
 
-const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type }) => {
-  return (
-    <div>
-      <div className="container-config-btn">
-        <ConfigurationButton />
-      </div>
-      <div className="home-container">
-        <label className="home-text" htmlFor="email">Email do Gravatar:</label>
-        <input
-          className="home-inputs-and-btn"
-          value={email || ''}
-          id="email"
-          onChange={(event) => handleChange(event, handleInputChange)}
-          name="email"
-          type="text"
-          data-testid="input-gravatar-email"
-        />
-        <label className="home-text" htmlFor="name">Nome do jogador:</label>
-        <input
-          className="home-inputs-and-btn"
-          value={name || ''}
-          id="name"
-          onChange={(event) => handleChange(event, handleInputChange)}
-          name="name"
-          type="text"
-          data-testid="input-player-name"
-        />
-        <Link to="/game">
-          <button
-            className="home-inputs-and-btn home-btn-play"
-            disabled={disableButton(name, email)}
-            onClick={() => handleClick(name, email)}
-            data-testid="btn-play"
-          >
-            JOGAR!
-      </button>
-        </Link>
-      </div>
+const InitialInputs = ({ name, email, handleInputChange }) => (
+  <div>
+    <div className="container-config-btn">
+      <ConfigurationButton />
     </div>
-  );
-};
+    <div className="home-container">
+      <label className="home-text" htmlFor="email">Email do Gravatar:</label>
+      <input
+        className="home-inputs-and-btn"
+        value={email || ''}
+        id="email"
+        onChange={(event) => handleChange(event, handleInputChange)}
+        name="email"
+        type="text"
+        data-testid="input-gravatar-email"
+      />
+      <label className="home-text" htmlFor="name">Nome do jogador:</label>
+      <input
+        className="home-inputs-and-btn"
+        value={name || ''}
+        id="name"
+        onChange={(event) => handleChange(event, handleInputChange)}
+        name="name"
+        type="text"
+        data-testid="input-player-name"
+      />
+      <Link to="/game">
+        <button
+          className="home-inputs-and-btn home-btn-play"
+          disabled={disableButton(name, email)}
+          onClick={() => handleClick(name, email)}
+          data-testid="btn-play"
+        >
+          JOGAR!
+      </button>
+      </Link>
+    </div>
+  </div>
+);
+
 
 const mapStateToProps = ({
   handleInputChange,
   inputChanges: { name, email },
-  selectorsChange: { categorie, difficulty, type },
 }) => (
-    {
-      name, email, handleInputChange, categorie, difficulty, type,
-    }
-  );
+  {
+    name, email, handleInputChange,
+  }
+);
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputChange: (value, name) => dispatch(handlingInputChanges(value, name)),
@@ -95,9 +93,6 @@ InitialInputs.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  categorie: PropTypes.string.isRequired,
-  difficulty: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InitialInputs);

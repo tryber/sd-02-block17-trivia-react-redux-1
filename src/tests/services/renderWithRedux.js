@@ -8,7 +8,7 @@ const renderWithRedux = (
   component,
   {
     initialState,
-    store = createStore(RootReducer, initialState)
+    store = createStore(RootReducer, initialState),
   } = {}) => ({
     ...render(<Provider store={store}>{component}</Provider>),
     store,
