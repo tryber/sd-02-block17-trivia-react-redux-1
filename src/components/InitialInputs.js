@@ -36,7 +36,6 @@ const disableButton = (name, email) => {
 };
 
 const InitialInputs = ({ name, email, handleInputChange, categorie, difficulty, type }) => {
-  console.log(name, email, categorie, difficulty, type);
   return (
     <div>
       <div className="container-config-btn">
