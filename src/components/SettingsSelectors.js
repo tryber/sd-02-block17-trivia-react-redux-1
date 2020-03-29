@@ -23,7 +23,6 @@ class SettingSelectors extends Component {
   }
 
   handleChange(e, handleSelectorChange) {
-    console.log(this.props);
     const { name, value } = e.target;
     handleSelectorChange(value, name);
   }
@@ -60,19 +59,16 @@ class SettingSelectors extends Component {
           onChange={(event) => this.handleChange(event, handleSelectorChange)}
         >
           <option
-            data-testid="question-category-dropdown"
             value=""
           >
             Escolha um tipo
           </option>
           <option
-            data-testid="question-difficulty-dropdown"
             value="boolean"
           >
             V ou F
           </option>
           <option
-            data-testid="question-type-dropdown"
             value="multiple"
           >
             Múltipla Escolha
