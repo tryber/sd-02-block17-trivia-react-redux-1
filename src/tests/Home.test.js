@@ -35,6 +35,5 @@ describe('1. Home', () => {
     fireEvent.change(nameInput, { target: { value: 'Teste' } });
 
     expect(playButton.disabled).toBeFalsy();
-
   });
 });
