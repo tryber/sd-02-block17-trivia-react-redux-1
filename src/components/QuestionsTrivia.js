@@ -161,9 +161,9 @@ class QuestionsTrivia extends Component {
 
   dataTestToAnswer(buttonValue, correctAnswer, allAnswers) {
     if (buttonValue !== correctAnswer) {
-      return `wrong-answer-${allAnswers.indexOf(buttonValue)}`
+      return `wrong-answer-${allAnswers.indexOf(buttonValue)}`;
     }
-    return 'correct-answer'
+    return 'correct-answer';
   }
 
   buttonNext() {
