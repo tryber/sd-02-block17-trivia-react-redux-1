@@ -219,7 +219,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 QuestionsTrivia.propTypes = {
   getQuestions: PropTypes.func.isRequired,
-  results: PropTypes.oneOfType([PropTypes.string]),
+  results: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.string,
+  ]),
   categorie: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,

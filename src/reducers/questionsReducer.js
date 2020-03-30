@@ -6,7 +6,6 @@ const INITIAL_Q_STATE = {
 };
 
 const questionsReducer = (state = INITIAL_Q_STATE, action) => {
-  // console.log('received action: ', action);
   const { results, responseCode } = action;
   switch (action.type) {
     case REQUEST_QUESTIONS:

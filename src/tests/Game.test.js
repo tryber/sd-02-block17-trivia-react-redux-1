@@ -16,5 +16,6 @@ describe('3. Game', () => {
     fireEvent.click(playButton);
 
     console.log(window.location.href);
+
   });
 });
