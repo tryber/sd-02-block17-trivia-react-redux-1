@@ -113,7 +113,6 @@ class QuestionsTrivia extends Component {
     const adjustedType = type ? `&type=${type}` : '';
     let token = `&token=${localStorage.getItem('token')}`;
     if (localStorage.getItem('token') === null) token = '';
-    console.log(token, adjustedCategorie, adjustedDifficult, adjustedType);
     getQuestions(adjustedCategorie, adjustedDifficult, adjustedType, token);
   }
 
@@ -178,7 +177,6 @@ class QuestionsTrivia extends Component {
   render() {
     const { index, isEndGame, clock } = this.state;
     const { results, responseCode, isFetching } = this.props;
-    console.log(responseCode);
     if (isFetching || responseCode === 1) return <div>Loading...</div>;
     if (responseCode === 3) return QuestionsTrivia.notFound();
     const allAnswers = randomQuestions(results, index);
@@ -221,7 +219,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 QuestionsTrivia.propTypes = {
   getQuestions: PropTypes.func.isRequired,
-  results: PropTypes.instanceOf(Array),
+  results: PropTypes.oneOfType([PropTypes.string]),
   categorie: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,

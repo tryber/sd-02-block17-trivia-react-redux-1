@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ConfigurationButton from './ConfigurationButton';
 import '../style/Header.css';
 
@@ -13,7 +12,6 @@ class Header extends React.Component {
   render() {
     const state = JSON.parse(localStorage.getItem('state')) || [];
     const { name, picture, score } = state.player || '';
-    console.log('point now', score);
     return (
       <div className="Header_father">
         <div className="Header_image-and-name">
@@ -44,9 +42,5 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = ({ scoreChangeReducer: { score } }) => ({ storeScore: score });
-
-Header.propTypes = {
-  score: PropTypes.number.isRequired,
-};
 
 export default connect(mapStateToProps)(Header);

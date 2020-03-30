@@ -2,6 +2,7 @@ import { REQUEST_QUESTIONS, RECEIVE_Q_SUCCESS, RECEIVE_Q_FAILURE } from '../acti
 
 const INITIAL_Q_STATE = {
   isFetching: false,
+  results: '',
 };
 
 const questionsReducer = (state = INITIAL_Q_STATE, action) => {
