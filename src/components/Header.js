@@ -16,6 +16,7 @@ class Header extends React.Component {
       <div className="Header_father">
         <div className="Header_image-and-name">
           <img
+            data-testid="header-profile-picture"
             className="Header_player-image"
             alt={`${name} player gravatar`}
             src={picture}

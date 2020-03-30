@@ -62,5 +62,7 @@ describe('3. Game', () => {
     
     expect(nextQuestion).not.toBeInTheDocument();
     expect(window.location.href.includes('/game')).toBeFalsy();
+
+    
   });
 });
