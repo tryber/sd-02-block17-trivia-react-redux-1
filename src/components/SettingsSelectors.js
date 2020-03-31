@@ -90,7 +90,7 @@ class SettingSelectors extends Component {
         >
           <option value="">Escolha uma categoria</option>
           {categories.map(({ name, id }) => (
-            <option key={name} value={id}>{name}</option>
+            <option data-testid={`category-option-${id}`} key={name} value={id}>{name}</option>
           ))
           }
         </select >
