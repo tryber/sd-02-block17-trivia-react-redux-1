@@ -27,7 +27,6 @@ const calculateScore = (difficulty) => {
 };
 
 class QuestionsTrivia extends Component {
-
   static notFound() {
     return (
       <Redirect to="/" />
@@ -70,6 +69,13 @@ class QuestionsTrivia extends Component {
         </p>
       </div>
     );
+  }
+
+  static dataTestToAnswer(buttonValue, correctAnswer, allAnswers) {
+    if (buttonValue !== correctAnswer) {
+      return `wrong-answer-${allAnswers.indexOf(buttonValue)}`;
+    }
+    return 'correct-answer';
   }
 
   constructor(props) {
@@ -159,13 +165,6 @@ class QuestionsTrivia extends Component {
     return 'btn-red';
   }
 
-  static dataTestToAnswer(buttonValue, correctAnswer, allAnswers) {
-    if (buttonValue !== correctAnswer) {
-      return `wrong-answer-${allAnswers.indexOf(buttonValue)}`;
-    }
-    return 'correct-answer';
-  }
-
   buttonNext() {
     const { isAnswered } = this.state;
     return (
@@ -191,9 +190,7 @@ class QuestionsTrivia extends Component {
     return (
       <div className="questions-container">
         {QuestionsTrivia.renderQuestion(
-          clock,
-          results[index].category,
-          results[index].question,
+          clock, results[index].category, results[index].question,
         )}
         <div className="questions-buttons">
           {allAnswers.sort().map((answer) => (
