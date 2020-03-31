@@ -34,7 +34,7 @@ const Ranking = () => {
       })
       }
       <Link to="/">
-        <button className="Button_home">Voltar ao início</button>
+        <button data-testid="btn-go-home" className="Button_home">Voltar ao início</button>
       </Link>
     </div>
   );
