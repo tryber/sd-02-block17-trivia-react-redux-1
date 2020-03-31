@@ -49,7 +49,7 @@ describe('3. Game', () => {
     expect(nextQuestion.hidden).toBeFalsy();
     expect(score.innerHTML).not.toBe('Pontos: 0');
     fireEvent.click(nextQuestion);
-    const playerScore = JSON.parse(localStorage.getItem('state')).player.score;
+    let playerScore = JSON.parse(localStorage.getItem('state')).player.score;
     fireEvent.click(wrongQuestions[0]);
     expect(score.innerHTML.includes(playerScore)).toBeTruthy();
     fireEvent.click(nextQuestion);
@@ -62,7 +62,18 @@ describe('3. Game', () => {
     
     expect(nextQuestion).not.toBeInTheDocument();
     expect(window.location.href.includes('/game')).toBeFalsy();
-
+    playerScore = JSON.parse(localStorage.getItem('state')).player.score;
+    const playerAssertions = JSON.parse(localStorage.getItem('state')).player.assertions;
+    const answerTitle = playerAssertions >= 3 ? 'Mandou bem!' : 'Podia ser melhor...';
     
+    const feedbackText = getByTestId(/feedback-text/i);
+    const feedbackAssertions = getByTestId(/feedback-total-question/i);
+    const feedbackScore = getByTestId(/feedback-total-score/i);
+    expect(feedbackText).toBeInTheDocument();
+    expect(feedbackText.innerHTML).toBe(answerTitle);
+    expect(feedbackAssertions).toBeInTheDocument();
+    expect(feedbackAssertions.innerHTML).toBe(`Você acertou ${playerAssertions} questões!`);
+    expect(feedbackScore).toBeInTheDocument();
+    expect(feedbackScore.innerHTML).toBe(`Um total de ${playerScore} pontos`);
   });
 });
