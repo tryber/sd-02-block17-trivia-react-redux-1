@@ -1,6 +1,6 @@
 import { CHANGE_INPUT } from '../actions';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   name: '',
   email: '',
 };

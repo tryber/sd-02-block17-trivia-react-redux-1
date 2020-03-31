@@ -27,7 +27,6 @@ const calculateScore = (difficulty) => {
 };
 
 class QuestionsTrivia extends Component {
-
   static notFound() {
     return (
       <Redirect to="/" />
@@ -72,6 +71,13 @@ class QuestionsTrivia extends Component {
     );
   }
 
+  static dataTestToAnswer(buttonValue, correctAnswer, allAnswers) {
+    if (buttonValue !== correctAnswer) {
+      return `wrong-answer-${allAnswers.indexOf(buttonValue)}`;
+    }
+    return 'correct-answer';
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -113,7 +119,6 @@ class QuestionsTrivia extends Component {
     const adjustedType = type ? `&type=${type}` : '';
     let token = `&token=${localStorage.getItem('token')}`;
     if (localStorage.getItem('token') === null) token = '';
-    console.log(token, adjustedCategorie, adjustedDifficult, adjustedType);
     getQuestions(adjustedCategorie, adjustedDifficult, adjustedType, token);
   }
 
@@ -178,7 +183,6 @@ class QuestionsTrivia extends Component {
   render() {
     const { index, isEndGame, clock } = this.state;
     const { results, responseCode, isFetching } = this.props;
-    console.log(responseCode);
     if (isFetching || responseCode === 1) return <div>Loading...</div>;
     if (responseCode === 3) return QuestionsTrivia.notFound();
     const allAnswers = randomQuestions(results, index);
@@ -186,14 +190,16 @@ class QuestionsTrivia extends Component {
     return (
       <div className="questions-container">
         {QuestionsTrivia.renderQuestion(
-          clock,
-          results[index].category,
-          results[index].question,
+          clock, results[index].category, results[index].question,
         )}
         <div className="questions-buttons">
           {allAnswers.sort().map((answer) => (
             <button
               className={this.classNameToButton(answer, results[index].correct_answer)}
+              data-testid={QuestionsTrivia.dataTestToAnswer(
+                answer,
+                results[index].correct_answer,
+                allAnswers)}
               key={answer}
               disabled={this.state.isAnswered}
               type="button"
@@ -221,7 +227,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 QuestionsTrivia.propTypes = {
   getQuestions: PropTypes.func.isRequired,
-  results: PropTypes.instanceOf(Array),
+  results: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.string,
+  ]),
   categorie: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,

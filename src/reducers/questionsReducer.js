@@ -2,10 +2,10 @@ import { REQUEST_QUESTIONS, RECEIVE_Q_SUCCESS, RECEIVE_Q_FAILURE } from '../acti
 
 const INITIAL_Q_STATE = {
   isFetching: false,
+  results: '',
 };
 
 const questionsReducer = (state = INITIAL_Q_STATE, action) => {
-  // console.log('received action: ', action);
   const { results, responseCode } = action;
   switch (action.type) {
     case REQUEST_QUESTIONS:
