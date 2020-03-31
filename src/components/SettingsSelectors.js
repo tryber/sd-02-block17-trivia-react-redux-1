@@ -22,7 +22,7 @@ class SettingSelectors extends Component {
     });
   }
 
-  handleChange(e, handleSelectorChange) {
+  static handleChange(e, handleSelectorChange) {
     const { name, value } = e.target;
     handleSelectorChange(value, name);
   }
@@ -36,7 +36,7 @@ class SettingSelectors extends Component {
           className="settings-input"
           data-testid="question-category-dropdown"
           value={categorie} name="categorie"
-          onChange={(event) => this.handleChange(event, handleSelectorChange)}
+          onChange={(event) => SettingSelectors.handleChange(event, handleSelectorChange)}
         >
           <option value="">Escolha uma categoria</option>
           {categories.map(({ name, id }) => (
@@ -56,7 +56,7 @@ class SettingSelectors extends Component {
           className="settings-input"
           data-testid="question-type-dropdown"
           value={type} name="type"
-          onChange={(event) => this.handleChange(event, handleSelectorChange)}
+          onChange={(event) => SettingSelectors.handleChange(event, handleSelectorChange)}
         >
           <option
             value=""
@@ -87,7 +87,7 @@ class SettingSelectors extends Component {
           data-testid="question-difficulty-dropdown"
           value={difficulty}
           name="difficulty"
-          onChange={(event) => this.handleChange(event, handleSelectorChange)}
+          onChange={(event) => SettingSelectors.handleChange(event, handleSelectorChange)}
         >
           <option value="">Escolha a dificuldade</option>
           <option value="easy">Easy</option>

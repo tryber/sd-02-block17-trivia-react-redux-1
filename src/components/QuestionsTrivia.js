@@ -159,7 +159,7 @@ class QuestionsTrivia extends Component {
     return 'btn-red';
   }
 
-  dataTestToAnswer(buttonValue, correctAnswer, allAnswers) {
+  static dataTestToAnswer(buttonValue, correctAnswer, allAnswers) {
     if (buttonValue !== correctAnswer) {
       return `wrong-answer-${allAnswers.indexOf(buttonValue)}`;
     }
@@ -199,7 +199,10 @@ class QuestionsTrivia extends Component {
           {allAnswers.sort().map((answer) => (
             <button
               className={this.classNameToButton(answer, results[index].correct_answer)}
-              data-testid={this.dataTestToAnswer(answer, results[index].correct_answer, allAnswers)}
+              data-testid={QuestionsTrivia.dataTestToAnswer(
+                answer,
+                results[index].correct_answer,
+                allAnswers)}
               key={answer}
               disabled={this.state.isAnswered}
               type="button"
